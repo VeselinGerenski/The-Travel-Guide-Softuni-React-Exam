@@ -52,7 +52,7 @@ export default function Home() {
             <section className="
                 w-full max-w-4xl 
                 rounded-3xl 
-                bg-[#ebe6d9]/90 
+                bg-[#ebe6d9]/85 
                 border border-white/40 
                 shadow-[0_0_60px_rgba(0,0,0,0.18)] 
                 px-10 py-10

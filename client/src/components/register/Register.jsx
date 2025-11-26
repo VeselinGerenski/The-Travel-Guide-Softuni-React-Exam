@@ -5,7 +5,7 @@ export default function Register() {
   return (
     <div className="min-h-screen flex items-center justify-center px-4 pt-20 pb-10">
       <form
-        className="w-full max-w-lg rounded-[32px] bg-[#f3ebdd]/95 backdrop-blur-md border border-amber-900/20 shadow-[0_18px_45px_rgba(0,0,0,0.35)] px-10 py-8 space-y-5"
+        className="w-full max-w-lg rounded-[32px] bg-[#f3ebdd]/75 backdrop-blur-md border border-amber-900/20 shadow-[0_18px_45px_rgba(0,0,0,0.35)] px-10 py-8 space-y-5"
       >
         {/* Letter header */}
         <div className="flex items-center justify-between border-b border-amber-900/20 pb-3 mb-3 text-[11px] uppercase tracking-[0.25em] text-amber-900/80">

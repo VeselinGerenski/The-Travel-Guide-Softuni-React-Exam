@@ -4,10 +4,11 @@ import Header from "./components/header/Header.jsx"
 import Catalog from "./components/catalog/Catalog.jsx"
 import Home from "./components/home/Home.jsx"
 import Register from "./components/register/Register.jsx"
-import Login from "./components/register/login/Login.jsx"
+import Login from "./components/login/Login.jsx"
 import CreateCity from "./components/create-city/CreateCity.jsx"
 import DetailsCity from "./components/details-city/DetailsCity.jsx"
 import EditCity from "./components/edit-city/EditCity.jsx"
+import Page404 from "./components/page-404/Page404.jsx"
 
 function App() {
   const location = useLocation();
@@ -27,6 +28,8 @@ function App() {
         <Route path="/details/:cityId" element={<DetailsCity />} />
         <Route path="/edit/:cityId" element={<EditCity />} />
 
+
+        <Route path="*" element={<Page404 />} />
       </Routes>
 
       <Footer />

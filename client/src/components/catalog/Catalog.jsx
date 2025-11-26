@@ -47,7 +47,7 @@ export default function Catalog() {
     <div className="min-h-screen flex justify-center px-4 pt-5 pb-10">
 
       {/* section relative so X can sit inside it */}
-      <section className="relative w-full max-w-5xl rounded-3xl bg-[#ebe6d9]/90 border border-white/40 px-10 py-10">
+      <section className="relative w-full max-w-5xl rounded-3xl bg-[#ebe6d9]/85 border border-white/40 px-10 py-10">
 
         {/* X CLOSE BUTTON */}
         <button
