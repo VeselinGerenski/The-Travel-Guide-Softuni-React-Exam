@@ -10,4 +10,6 @@
  # Adding components
  - [X] Add Header
  - [X] Add Footer
- - [] Add Catalog page with hardcoded cities
+ - [X] Add Routes to App
+ - [X] Add Catalog with hardcoded cities
+ - [X] Add Home with hardcoded cities
