@@ -1,1 +1,68 @@
 @import "tailwindcss";
+
+
+/* default background */
+.default-bg {
+  min-height: 100vh;
+  background-image: url('/images/background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top center;
+}
+
+/* background for home and catalog*/
+.cities-bg {
+  min-height: 100vh;
+  background-image: url('/images/homeBackground.jpg');
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.hover-scale {
+  transition: transform 0.3s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.20);
+}
+
+body {
+  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+
+/* --- Vintage Ink Spread for Nav Links --- */
+.ink-link {
+  position: relative;
+  transition: color 0.25s ease;
+}
+
+.ink-link::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -2px;
+  width: 0%;
+  height: 2px;
+  background: rgba(180, 120, 50, 0.55);
+  /* warm vintage amber-brown */
+  transition: all 0.35s ease;
+  transform: translateX(-50%);
+  border-radius: 9999px;
+  filter: blur(5px);
+  /* subtle ink bleed */
+}
+
+.ink-link:hover {
+  color: #d97706;
+  /* Tailwind amber-600 */
+}
+
+.ink-link:hover::after {
+  width: 110%;
+  height: 3px;
+  background: rgba(180, 120, 50, 0.7);
+  filter: blur(2px);
+  /* ink spreads */
+}
