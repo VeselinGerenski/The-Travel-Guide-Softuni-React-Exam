@@ -9,7 +9,11 @@ function App() {
     <div className="default-bg">
       <Header />
 
-       
+      <Routes >
+
+        <Route path="/Catalog" element={<Catalog />} />
+
+      </Routes>
 
       <Footer />
 
