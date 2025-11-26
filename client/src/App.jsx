@@ -7,6 +7,7 @@ import Register from "./components/register/Register.jsx"
 import Login from "./components/register/login/Login.jsx"
 import CreateCity from "./components/create-city/CreateCity.jsx"
 import DetailsCity from "./components/details-city/DetailsCity.jsx"
+import EditCity from "./components/edit-city/EditCity.jsx"
 
 function App() {
   const location = useLocation();
@@ -24,7 +25,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/create" element={<CreateCity />} />
         <Route path="/details/:cityId" element={<DetailsCity />} />
-
+        <Route path="/edit/:cityId" element={<EditCity />} />
 
       </Routes>
 
