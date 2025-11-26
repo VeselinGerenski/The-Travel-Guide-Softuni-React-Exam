@@ -91,6 +91,7 @@ export default function DetailsCity() {
           {/* COMMENTS */}
           <div className="pt-3 border-t border-amber-900/20">
             <h2 className="text-l font-semibold text-slate-900 mb-2">Comments</h2>
+            <DetailsComment />
             <CreateComment />
           </div>
 
