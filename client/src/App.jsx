@@ -5,6 +5,7 @@ import Catalog from "./components/catalog/Catalog.jsx"
 import Home from "./components/home/Home.jsx"
 import Register from "./components/register/Register.jsx"
 import Login from "./components/register/login/Login.jsx"
+import CreateCity from "./components/create-city/CreateCity.jsx"
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
         <Route path="/Catalog" element={<Catalog />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/create" element={<CreateCity />} />
 
         
       </Routes>

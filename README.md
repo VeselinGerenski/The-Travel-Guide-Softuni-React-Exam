@@ -15,3 +15,4 @@
  - [X] Add Home with hardcoded cities
  - [X] Add Register
  - [X] Add Login
+ - [X] Add CreateCity
