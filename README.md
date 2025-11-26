@@ -14,3 +14,4 @@
  - [X] Add Catalog with hardcoded cities
  - [X] Add Home with hardcoded cities
  - [X] Add Register
+ - [X] Add Login
