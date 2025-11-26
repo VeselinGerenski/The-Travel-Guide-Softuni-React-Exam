@@ -1,6 +1,9 @@
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 
 export default function Header() {
+    const { pathname } = useLocation();
+    const isCatalogPage = pathname === "/catalog";
+
     return (
 
         <header className="absolute inset-x-0 top-0 z-50 text-white bg-gradient-to-b from-black/60 via-black/10 to-transparent">
@@ -21,8 +24,7 @@ export default function Header() {
                 {/* NAVIGATION */}
                 <div className="absolute left-[55%] -translate-x-1/2">
 
-
-                    <ul className="hidden lg:flex gap-16 text-2xl font-semibold tracking-wide">
+                    {!isCatalogPage && (<ul className="hidden lg:flex gap-16 text-2xl font-semibold tracking-wide">
                         <li>
                             <Link to="/" className="ink-link inline-block text-3xl  hover-scale">Home</Link>
                         </li>
@@ -39,6 +41,7 @@ export default function Header() {
                             <Link to="/register" className="ink-link inline-block text-3xl hover-scale">Register</Link>
                         </li>
                     </ul>
+                    )}
 
                 </div>
 
