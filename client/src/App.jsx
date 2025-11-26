@@ -3,6 +3,7 @@ import Footer from "./components/footer/Footer.jsx"
 import Header from "./components/header/Header.jsx"
 import Catalog from "./components/catalog/Catalog.jsx"
 import Home from "./components/home/Home.jsx"
+import Register from "./components/register/Register.jsx"
 
 function App() {
 
@@ -12,8 +13,10 @@ function App() {
 
       <Routes >
 
-        <Route path="/Catalog" element={<Catalog />} />
         <Route path="/" element={<Home />} />
+        <Route path="/Catalog" element={<Catalog />} />
+        <Route path="/register" element={<Register />} />
+
         
       </Routes>
 

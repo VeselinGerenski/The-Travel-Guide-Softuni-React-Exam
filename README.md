@@ -13,3 +13,4 @@
  - [X] Add Routes to App
  - [X] Add Catalog with hardcoded cities
  - [X] Add Home with hardcoded cities
+ - [X] Add Register
