@@ -77,7 +77,7 @@ export default function DetailsCity() {
               Edit
             </Link>
 
-            <button className="px-4 py-1.5 rounded-full bg-red-600 text-white text-xs font-semibold hover:bg-red-500 transition shadow-sm">
+            <button className="px-4 py-1.5 rounded-full bg-red-700 text-white text-xs font-semibold hover:bg-red-600 transition shadow-sm">
               Delete
             </button>
           </div>
