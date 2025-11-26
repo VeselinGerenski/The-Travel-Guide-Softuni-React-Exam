@@ -18,7 +18,8 @@
  - [X] Add CreateCity
  - [X] Add Details with hardcoded city
  - [X] Add Edit City
- 
+
  - [X] Dynamic background depending on the page
  - [X] Hide Header in Catalog
+ - [X] Add Details & Create comment to DetailsCity
 

@@ -1,4 +1,6 @@
 import { useParams, useNavigate, Link } from "react-router";
+import CreateComment from "./create-comment/CreateComment.jsx";
+import DetailsComment from "./details-comment/DetailsComment.jsx";
 
 export default function DetailsCity() {
   const navigate = useNavigate();
@@ -85,6 +87,13 @@ export default function DetailsCity() {
               Delete
             </button>
           </div>
+
+          {/* COMMENTS */}
+          <div className="pt-3 border-t border-amber-900/20">
+            <h2 className="text-l font-semibold text-slate-900 mb-2">Comments</h2>
+            <CreateComment />
+          </div>
+
         </div>
       </section>
     </div>
