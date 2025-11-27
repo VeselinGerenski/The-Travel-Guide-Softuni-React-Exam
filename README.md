@@ -22,4 +22,11 @@
  - [X] Hide Header in Catalog
  - [X] Add Details & Create comment components to DetailsCity
  - [X] Add 404 page
+ - [X] Add useBackground hook in app
+ 
+
+ # Dynamic data integration
+
+- [X] Add Softuni practice server and cities data
+- [X] Add 
 
