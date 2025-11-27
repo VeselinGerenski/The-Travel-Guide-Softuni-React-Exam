@@ -1,21 +1,50 @@
 import { useParams, useNavigate, Link } from "react-router";
 import CreateComment from "./create-comment/CreateComment.jsx";
 import DetailsComment from "./details-comment/DetailsComment.jsx";
+import { useEffect, useState } from "react";
 
-export default function DetailsCity() {
+export default function DetailsCity({
+  heightClass = "h-65"
+}) {
   const navigate = useNavigate();
   const { cityId } = useParams();
+  const [city, setCity] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const exampleCity = {
-    id: cityId,
-    name: "London",
-    country: "United Kingdom",
-    population: 8900000,
-    description:
-      "Foggy mornings, red buses and hidden bookshops. A timeless blend of history and modern life.",
-    imageUrl: "/images/cities/london.jpg",
-    likes: 124,
-  };
+  useEffect(() => {
+    fetch(`http://localhost:3030/jsonstore/cities/${cityId}`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Unable to load city details");
+        }
+        return response.json();
+      })
+      .then(result => {
+        setCity(result)
+      })
+      .catch(err => {
+        alert(err.message)
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
+  }, [cityId])
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-slate-700">
+        Loading city details...
+      </div>
+    );
+  }
+
+  if (!city) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-red-600">
+        City not found.
+      </div>
+    );
+  }
 
   return (
     <div
@@ -29,9 +58,9 @@ export default function DetailsCity() {
         {/* IMAGE */}
         <div className="relative">
           <img
-            src={exampleCity.imageUrl}
-            alt={exampleCity.name}
-            className="h-55 w-full object-cover rounded-t-2xl"
+            src={city.imageUrl}
+            alt={city.name}
+            className={`${heightClass} w-full object-cover rounded-t-2xl`}
           />
           <button
             onClick={() => navigate(-1)}
@@ -45,33 +74,33 @@ export default function DetailsCity() {
         <div className="px-6 py-4 space-y-4">
           <div className="text-center">
             <p className="text-[9px] uppercase tracking-[0.15em] text-amber-700">
-              {exampleCity.country}
+              {city.country}
             </p>
 
             <h1 className="mt-1 text-3xl font-semibold text-slate-900 font-['Playfair_Display']">
-              {exampleCity.name}
+              {city.name}
             </h1>
 
             <p className="mt-1 text-xs text-slate-700 italic">
-              Population: {exampleCity.population.toLocaleString()} people
+              Population: {city.population.toLocaleString()} people
             </p>
           </div>
 
           <p className="text-[12px] text-slate-800 leading-relaxed text-center max-w-xl mx-auto">
-            {exampleCity.description}
+            {city.description}
           </p>
 
           <div className="text-center text-amber-800 font-semibold text-xs">
-            ❤️ {exampleCity.likes} travelers like this destination
+            ❤️ {city.likes} travelers like this destination
           </div>
 
           <div className="flex justify-center gap-3 pt-2">
             <button className="px-4 py-1.5 rounded-full bg-amber-600 text-white text-xs font-semibold hover:bg-amber-500 transition shadow-sm">
-               Like
+              Like
             </button>
 
             <Link
-              to={`/edit/${exampleCity.id}`}
+              to={`/edit/${cityId}`}
               className="px-4 py-1.5 rounded-full bg-slate-800 text-white text-xs font-semibold hover:bg-slate-700 transition shadow-sm"
             >
               Edit
@@ -85,8 +114,8 @@ export default function DetailsCity() {
           {/* COMMENTS */}
           <div className="pt-2 border-t border-amber-900/20">
             <h2 className="text-sm font-semibold text-slate-900 mb-1">Comments</h2>
-            <DetailsComment />
-            <CreateComment />
+            <DetailsComment cityId={cityId} />
+            <CreateComment cityId={cityId} />
           </div>
 
         </div>

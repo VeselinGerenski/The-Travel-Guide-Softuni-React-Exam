@@ -72,14 +72,24 @@ export default function Catalog() {
         ) : (
           <div className="grid gap-6 md:grid-cols-2">
             {cities.map(city => (
-              <CityCard 
-              key={city._id} 
-              {...city}
-              heightClass="h-60"
-               />
+              <CityCard
+                key={city._id}
+                {...city}
+                heightClass="h-60"
+              />
             ))}
           </div>
         )}
+
+        {cities.length === 0 && (
+          <div className="col-span-full flex flex-col items-center justify-center py-20 text-center">
+            <h2 className="text-4xl font-bold text-slate-900 mb-4">
+              Oops! No Cities Found
+            </h2>
+            <p className="text-lg text-amber-700 mb-2">
+              It looks like we don't have any cities to show right now.
+            </p>
+          </div>)}
 
       </section >
     </div >

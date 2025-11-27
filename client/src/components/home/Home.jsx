@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import CityCard from "../city-card/CityCard.jsx";
 
-;
-
 export default function Home() {
     const [cities, setCities] = useState([])
     const [isLoading, setIsLoading] = useState(true)
@@ -79,7 +77,18 @@ export default function Home() {
                                     />
                                 ))}
                         </div>
-                    )}
+                    )};
+
+                {cities.length === 0 && (
+                    <div className="col-span-full flex flex-col items-center justify-center py-20 text-center">
+                        <h2 className="text-4xl font-bold text-slate-900 mb-4">
+                            Oops! No Cities Found
+                        </h2>
+                        <p className="text-lg text-amber-700 mb-2">
+                            It looks like we don't have any cities to show right now.
+                        </p>
+                    </div>)}
+
             </section>
 
         </div>
