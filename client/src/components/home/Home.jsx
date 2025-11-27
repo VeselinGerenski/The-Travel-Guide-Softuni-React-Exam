@@ -1,38 +1,31 @@
-import { Link } from "react-router";
+import { useEffect, useState } from "react";
+import CityCard from "../city-card/CityCard.jsx";
+
+;
 
 export default function Home() {
-    const cities = [
-        {
-            id: 1,
-            name: "London",
-            country: "United Kingdom",
-            population: 8900000,
-            description:
-                "Foggy mornings, red buses and hidden bookshops. A timeless blend of history and modern life.",
-            imageUrl: "/images/cities/london.jpg",
-            likes: 124,
-        },
-        {
-            id: 2,
-            name: "Paris",
-            country: "France",
-            population: 2148000,
-            description:
-                "Lantern-lit streets and café terraces along the Seine. The city of light and slow mornings.",
-            imageUrl: "/images/cities/paris.jpg",
-            likes: 167,
-        },
-        {
-            id: 3,
-            name: "Rome",
-            country: "Italy",
-            population: 2873000,
-            description:
-                "Warm stone, winding alleys and ancient ruins on every corner. A living postcard from the past.",
-            imageUrl: "/images/cities/rome.jpg",
-            likes: 142,
-        },
-    ];
+    const [cities, setCities] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
+
+    useEffect(() => {
+        fetch('http://localhost:3030/jsonstore/cities')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Unable to load cities");
+                }
+                return response.json()
+            })
+            .then(result => {
+                setCities(Object.values(result))
+            })
+            .catch(err => {
+                alert(err.message)
+            })
+            .finally(() => {
+                setIsLoading(false)
+            })
+    }, [])
+
 
     return (
         <div className="min-h-screen flex flex-col lg:flex-row items-start justify-center gap-10 px-4 pt-40 pb-10 ml-[-40px]">
@@ -71,54 +64,22 @@ export default function Home() {
                 </div>
 
                 {/* Cards */}
-                <div className="grid gap-7 md:grid-cols-3">
-                    {cities.map((city) => (
-                        <article key={city.id}>
-                            <div className="relative h-75 w-full overflow-hidden rounded-3xl shadow-xl bg-slate-900/10 group">
-
-                                <img
-                                    src={city.imageUrl}
-                                    alt={city.name}
-                                    className="h-full w-full object-cover transform group-hover:scale-120 transition duration-700"
-                                />
-
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-
-                                <div className="absolute inset-x-0 bottom-0 p-4 text-center text-white pointer-events-none">
-                                    <p className="text-[0.65rem] uppercase tracking-[0.25em] text-amber-300">
-                                        {city.country}
-                                    </p>
-
-                                    <h2 className="mt-1 text-xl font-semibold font-['Playfair_Display']">
-                                        {city.name}
-                                    </h2>
-
-                                    <p className="mt-1 text-xs text-amber-100/90">
-                                        {city.population.toLocaleString()} people · {city.likes} likes
-                                    </p>
-                                </div>
-
-                                <Link to={`/details/${city.id}`}>
-                                    <button
-                                        className="
-                                            absolute left-1/2 top-1/2 
-                                            -translate-x-1/2 -translate-y-1/2
-                                            rounded-full bg-white/90 px-4 py-2 
-                                            text-xs font-semibold text-slate-900 
-                                            shadow-lg opacity-0 group-hover:opacity-100
-                                            transition-all duration-500 
-                                            hover:bg-amber-600 hover:text-white
-                                            pointer-events-auto
-                                        "
-                                    >
-                                        View details
-                                    </button>
-                                </Link>
-
-                            </div>
-                        </article>
-                    ))}
-                </div>
+                {isLoading ?
+                    <p className="text-center text-slate-700">Loading...</p>
+                    : (
+                        <div className="grid gap-7 md:grid-cols-3">
+                            {cities
+                                .sort((a, b) => b.likes - a.likes)
+                                .slice(0, 3)
+                                .map(city => (
+                                    <CityCard
+                                        key={city._id}
+                                        {...city}
+                                        heightClass="h-72"
+                                    />
+                                ))}
+                        </div>
+                    )}
             </section>
 
         </div>
