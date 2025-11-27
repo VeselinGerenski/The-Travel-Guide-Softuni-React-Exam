@@ -26,7 +26,7 @@ export default function Home() {
 
 
     return (
-        <div className="min-h-screen flex flex-col lg:flex-row items-start justify-center gap-10 px-4 pt-40 pb-10 ml-[-40px]">
+        <div className="min-h-screen flex flex-col lg:flex-row items-start justify-center gap-10 px-4 pt-35 pb-10 ml-[-40px]">
 
             {/* LEFT SIDE – WELCOME TEXT */}
             <div className="hidden lg:flex flex-col items-start mt-26 ">

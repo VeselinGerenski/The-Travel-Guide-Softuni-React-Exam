@@ -80,7 +80,7 @@ export default function EditCity() {
               value={formValues.name}
               onChange={changeHandler}
               required
-              className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm focus:outline-none focus:border-amber-600"
+              className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm focus:outline-none focus:border-amber-600 cursor-pointer"
               placeholder="e.g. Tokyo"
             />
           </div>
@@ -96,7 +96,7 @@ export default function EditCity() {
               value={formValues.country}
               onChange={changeHandler}
               required
-              className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm focus:outline-none focus:border-amber-600"
+              className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm focus:outline-none focus:border-amber-600 cursor-pointer"
               placeholder="e.g. Japan"
             />
           </div>
@@ -115,7 +115,7 @@ export default function EditCity() {
               value={formValues.population}
               onChange={changeHandler}
               required
-              className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm focus:outline-none focus:border-amber-600"
+              className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm focus:outline-none focus:border-amber-600 cursor-pointer"
               placeholder="e.g. 37400000"
             />
           </div>
@@ -131,7 +131,7 @@ export default function EditCity() {
               value={formValues.imageUrl}
               onChange={changeHandler}
               required
-              className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm focus:outline-none focus:border-amber-600"
+              className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm focus:outline-none focus:border-amber-600 cursor-pointer"
               placeholder="Direct link to an image"
             />
           </div>
@@ -148,7 +148,7 @@ export default function EditCity() {
             onChange={changeHandler}
             required
             rows="2"
-            className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm leading-relaxed focus:outline-none focus:border-amber-600 text-center"
+            className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm leading-relaxed focus:outline-none focus:border-amber-600 cursor-pointer text-center"
             placeholder="Describe this city..."
           />
         </div>
@@ -156,7 +156,7 @@ export default function EditCity() {
         {/* Submit */}
         <button
           type="submit"
-          className="w-full rounded-full bg-amber-700 py-2.5 text-sm font-semibold text-white shadow-md hover:bg-amber-600 transition"
+          className="w-full rounded-full bg-amber-700 py-2.5 text-sm font-semibold text-white shadow-md hover:bg-amber-600 cursor-pointer transition"
         >
           Save Changes
         </button>

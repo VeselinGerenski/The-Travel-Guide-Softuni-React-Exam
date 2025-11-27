@@ -8,7 +8,7 @@ export default function CreateComment() {
             />
             <button
                 type="submit"
-                className="px-4 py-1.5 rounded-xl bg-amber-600 text-white text-xs hover:bg-amber-500 transition shadow"
+                className="px-4 py-1.5 rounded-xl bg-amber-600 text-white text-xs hover:bg-amber-500 transition shadow cursor-pointer"
             >
                 Post
             </button>

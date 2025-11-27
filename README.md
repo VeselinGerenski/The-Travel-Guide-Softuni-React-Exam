@@ -24,9 +24,7 @@
  - [X] Add 404 page
  - [X] Add useBackground hook in app
  
-
  # Dynamic data integration
-
 - [X] Add Softuni practice server and cities data
 - [X] Add City card
 - [X] Add Dynamic cities to catalog page
@@ -38,3 +36,8 @@
 - [X] Add create city functionality
 - [X] Add delete city handler
 - [X] Add edit city functionality
+
+# Authentication
+- [X] Add controlled form hook
+- [X] Implement login functionality
+- [X] Add 

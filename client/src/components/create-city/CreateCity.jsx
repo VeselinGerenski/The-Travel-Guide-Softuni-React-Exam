@@ -43,17 +43,17 @@ export default function CreateCity() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 pt-22 pb-10">
+    <div className="min-h-screen flex items-center cursor-pointer justify-center cursor-pointer px-4 pt-22 pb-10">
       <form onSubmit={SubmitHandler}
         className="w-full max-w-2xl rounded-[32px] bg-[#f3ebdd]/75 backdrop-blur-md border border-amber-900/20 shadow-[0_18px_45px_rgba(0,0,0,0.35)] px-12 py-10 space-y-8"
       >
         {/* Letter header */}
-        <div className="flex items-center justify-between border-b border-amber-900/20 pb-3 mb-2 text-[11px] uppercase tracking-[0.25em] text-amber-900/80">
+        <div className="flex items-center cursor-pointer justify-between border-b border-amber-900/20 pb-3 mb-2 text-[11px] uppercase tracking-[0.25em] text-amber-900/80">
           <span>From: The Travel Guide</span>
           <span>To: City Records Dept.</span>
         </div>
 
-        <h1 className="text-4xl text-center font-['Playfair_Display'] font-semibold text-slate-900">
+        <h1 className="text-4xl text-center cursor-pointer font-['Playfair_Display'] font-semibold text-slate-900">
           Add a New City
         </h1>
 
@@ -61,7 +61,7 @@ export default function CreateCity() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* City Name */}
           <div>
-            <label className="block text-xs font-semibold text-amber-900/90 tracking-[0.15em] uppercase text-center">
+            <label className="block text-xs font-semibold text-amber-900/90 tracking-[0.15em] uppercase text-center cursor-pointer">
               City Name
             </label>
             <input
@@ -70,14 +70,14 @@ export default function CreateCity() {
               value={formValues.name}
               onChange={changeHandler}
               required
-              className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm focus:outline-none focus:border-amber-600 text-center"
+              className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm focus:outline-none focus:border-amber-600 text-center cursor-pointer"
               placeholder="e.g. Tokyo"
             />
           </div>
 
           {/* Country */}
           <div>
-            <label className="block text-xs font-semibold text-amber-900/90 tracking-[0.15em] uppercase text-center">
+            <label className="block text-xs font-semibold text-amber-900/90 tracking-[0.15em] uppercase text-center cursor-pointer">
               Country
             </label>
             <input
@@ -86,7 +86,7 @@ export default function CreateCity() {
               value={formValues.country}
               onChange={changeHandler}
               required
-              className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm focus:outline-none focus:border-amber-600 text-center"
+              className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm focus:outline-none focus:border-amber-600 text-center cursor-pointer"
               placeholder="e.g. Japan"
             />
           </div>
@@ -96,7 +96,7 @@ export default function CreateCity() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Population */}
           <div>
-            <label className="block text-xs font-semibold text-amber-900/90 tracking-[0.15em] uppercase text-center">
+            <label className="block text-xs font-semibold text-amber-900/90 tracking-[0.15em] uppercase text-center cursor-pointer">
               Population
             </label>
             <input
@@ -105,14 +105,14 @@ export default function CreateCity() {
               value={formValues.population}
               onChange={changeHandler}
               required
-              className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm focus:outline-none focus:border-amber-600 text-center"
+              className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm focus:outline-none focus:border-amber-600 text-center cursor-pointer"
               placeholder="e.g. 37400000"
             />
           </div>
 
           {/* Image URL */}
           <div>
-            <label className="block text-xs font-semibold text-amber-900/90 tracking-[0.15em] uppercase text-center">
+            <label className="block text-xs font-semibold text-amber-900/90 tracking-[0.15em] uppercase text-center cursor-pointer">
               Image URL
             </label>
             <input
@@ -121,7 +121,7 @@ export default function CreateCity() {
               value={formValues.imageUrl}
               onChange={changeHandler}
               required
-              className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm focus:outline-none focus:border-amber-600 text-center"
+              className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm focus:outline-none focus:border-amber-600 text-center cursor-pointer"
               placeholder="Direct link to an image"
             />
           </div>
@@ -129,7 +129,7 @@ export default function CreateCity() {
 
         {/* -------------------- ROW 3: Description (full width) -------------------- */}
         <div>
-          <label className="block text-xs font-semibold text-amber-900/90 tracking-[0.15em] uppercase text-center">
+          <label className="block text-xs font-semibold text-amber-900/90 tracking-[0.15em] uppercase text-center cursor-pointer">
             Description
           </label>
           <textarea
@@ -138,7 +138,7 @@ export default function CreateCity() {
             value={formValues.description}
             onChange={changeHandler}
             rows="2"
-            className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm leading-relaxed focus:outline-none focus:border-amber-600 text-center"
+            className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm leading-relaxed focus:outline-none focus:border-amber-600 text-center cursor-pointer "
             placeholder="Describe this city..."
           />
         </div>
@@ -146,7 +146,7 @@ export default function CreateCity() {
         {/* Submit */}
         <button
           type="submit"
-          className="w-full rounded-full bg-amber-700 py-2.5 text-sm font-semibold text-white shadow-md hover:bg-amber-600 transition"
+          className="w-full rounded-full bg-amber-700 py-2.5 text-sm font-semibold text-white shadow-md hover:bg-amber-600 transition cursor-pointer"
         >
           Add City
         </button>

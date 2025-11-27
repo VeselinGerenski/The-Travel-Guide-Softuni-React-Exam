@@ -35,8 +35,7 @@ export default function Register() {
             type="email"
             name="email"
             placeholder="you@example.com"
-
-            className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm text-slate-800 focus:outline-none focus:border-amber-600 placeholder:text-slate-400"
+            className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm text-slate-800 focus:outline-none focus:border-amber-600 placeholder:text-slate-400 cursor-pointer"
           />
         </div>
 
@@ -49,7 +48,7 @@ export default function Register() {
             type="password"
             name="password"
             placeholder="••••••••"
-            className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm text-slate-800 focus:outline-none focus:border-amber-600 placeholder:text-slate-400"
+            className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm text-slate-800 focus:outline-none focus:border-amber-600 placeholder:text-slate-400 cursor-pointer"
           />
         </div>
 
@@ -62,7 +61,7 @@ export default function Register() {
             type="password"
             name="repeatPassword"
             placeholder="••••••••"
-            className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm text-slate-800 focus:outline-none focus:border-amber-600 placeholder:text-slate-400"
+            className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm text-slate-800 focus:outline-none focus:border-amber-600 placeholder:text-slate-400 cursor-pointer"
           />
         </div>
 
@@ -70,7 +69,7 @@ export default function Register() {
         <div className="pt-2">
           <button
             type="submit"
-            className="w-full rounded-full bg-amber-700 py-2.5 text-sm font-semibold text-white shadow-md hover:bg-amber-600 transition"
+            className="w-full rounded-full bg-amber-700 py-2.5 text-sm font-semibold text-white shadow-md hover:bg-amber-600 transition cursor-pointer"
           >
             Register & Sign in
           </button>

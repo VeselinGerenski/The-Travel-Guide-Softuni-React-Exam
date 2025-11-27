@@ -60,7 +60,7 @@ export default function Login() {
             value={values.email}
             onChange={changeHandler}
             placeholder="you@example.com"
-            className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm text-slate-800 focus:outline-none focus:border-amber-600 placeholder:text-slate-400"
+            className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm text-slate-800 focus:outline-none focus:border-amber-600 placeholder:text--slate-400 cursor-pointer"
           />
         </div>
 
@@ -75,7 +75,7 @@ export default function Login() {
             value={values.password}
             onChange={changeHandler}
             placeholder="••••••••"
-            className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm text-slate-800 focus:outline-none focus:border-amber-600 placeholder:text-slate-400"
+            className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm text-slate-800 focus:outline-none focus:border-amber-600 placeholder:text--slate-400 cursor-pointer"
           />
         </div>
 
@@ -83,7 +83,7 @@ export default function Login() {
         <div className="pt-2">
           <button
             type="submit"
-            className="w-full rounded-full bg-amber-700 py-2.5 text-sm font-semibold text-white shadow-md hover:bg-amber-600 transition"
+            className="w-full rounded-full bg-amber-700 py-2.5 text-sm font-semibold text-white shadow-md hover:bg-amber-600 transition cursor-pointer"
           >
             Log In
           </button>
@@ -99,16 +99,6 @@ export default function Login() {
             >
               Create your account
             </Link>
-          </div>
-
-          <div className="flex justify-end">
-            <button
-              type="button"
-              className="text-xs text-slate-600 hover:text-amber-700 font-medium underline underline-offset-4"
-
-            >
-              Forgot your password?
-            </button>
           </div>
         </div>
       </form>

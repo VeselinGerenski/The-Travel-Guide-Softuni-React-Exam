@@ -18,7 +18,7 @@ export default function CityCard({
         <img
           src={imageUrl}
           alt={name}
-          className="h-full w-full object-cover transform group-hover:scale-110 transition duration-700"
+          className="h-full w-full object-cover transform group-hover:scale-120 transition duration-700"
         />
 
         {/* Gradient */}
@@ -54,7 +54,7 @@ export default function CityCard({
               text-sm font-semibold text-slate-900 
               shadow-md hover:bg-amber-600 hover:text-white 
               transition duration-300
-              pointer-events-auto
+              pointer-events-auto cursor-pointer
             "
           >
             View Details

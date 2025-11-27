@@ -65,7 +65,7 @@ export default function DetailsCity({
           />
           <button
             onClick={() => navigate(-1)}
-            className="absolute top-3 right-3 bg-white/90 backdrop-blur-md text-slate-900 rounded-full w-8 h-8 flex items-center justify-center shadow hover:bg-amber-600 hover:text-white transition text-sm"
+            className="absolute top-3 right-3 bg-white/90 backdrop-blur-md text-slate-900 rounded-full w-8 h-8 flex items-center justify-center shadow hover:bg-amber-600 hover:text-white transition text-sm cursor-pointer"
           >
             ✕
           </button>
@@ -96,7 +96,7 @@ export default function DetailsCity({
           </div>
 
           <div className="flex justify-center gap-3 pt-2">
-            <button className="px-4 py-1.5 rounded-full bg-amber-600 text-white text-xs font-semibold hover:bg-amber-500 transition shadow-sm">
+            <button className="px-4 py-1.5 rounded-full bg-amber-600 text-white text-xs font-semibold hover:bg-amber-500 transition shadow-sm cursor-pointer">
               Like
             </button>
 
@@ -109,7 +109,7 @@ export default function DetailsCity({
 
             <button
               onClick={() => deleteHandler(city, cityId, navigate)}
-              className="px-4 py-1.5 rounded-full bg-red-700 text-white text-xs font-semibold hover:bg-red-600 transition shadow-sm">
+              className="px-4 py-1.5 rounded-full bg-red-700 text-white text-xs font-semibold hover:bg-red-600 transition shadow-sm cursor-pointer">
               Delete
             </button>
           </div>
