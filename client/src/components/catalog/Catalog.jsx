@@ -72,7 +72,11 @@ export default function Catalog() {
         ) : (
           <div className="grid gap-6 md:grid-cols-2">
             {cities.map(city => (
-              <CityCard key={city._id} {...city} />
+              <CityCard 
+              key={city._id} 
+              {...city}
+              heightClass="h-60"
+               />
             ))}
           </div>
         )}

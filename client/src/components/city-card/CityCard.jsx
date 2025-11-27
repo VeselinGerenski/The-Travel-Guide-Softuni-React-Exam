@@ -8,10 +8,11 @@ export default function CityCard({
   imageUrl,
   description,
   likes,
+  heightClass = "h-64",
 }) {
   return (
     <article className="h-full">
-      <div className="relative h-60 w-full overflow-hidden rounded-2xl bg-slate-900/10 group shadow-lg">
+      <div className={`relative ${heightClass} overflow-hidden rounded-2xl bg-slate-900/10 group shadow-lg`}>
 
         {/* Image */}
         <img
