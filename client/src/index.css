@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 
-/* default background */
-.default-bg {
+/* home background */
+.home-bg {
   min-height: 100vh;
   background-image: url('/images/background.jpg');
   background-size: cover;
@@ -10,8 +10,8 @@
   background-position: top center;
 }
 
-/* background for home and catalog*/
-.cities-bg {
+/* default background*/
+.default-bg {
   min-height: 100vh;
   background-image: url('/images/homeBackground.jpg');
   background-size: 100%;

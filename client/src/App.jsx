@@ -1,4 +1,4 @@
-import { Route, Routes, useLocation } from "react-router"
+import { Route, Routes} from "react-router"
 import Footer from "./components/footer/Footer.jsx"
 import Header from "./components/header/Header.jsx"
 import Catalog from "./components/catalog/Catalog.jsx"
@@ -9,14 +9,12 @@ import CreateCity from "./components/create-city/CreateCity.jsx"
 import DetailsCity from "./components/details-city/DetailsCity.jsx"
 import EditCity from "./components/edit-city/EditCity.jsx"
 import Page404 from "./components/page-404/Page404.jsx"
+import useBackground from "./hooks/useBackground.js"
 
 function App() {
-  const location = useLocation();
-  const citiesBg = location.pathname === "/" || location.pathname === "/catalog"
-  const backGround = citiesBg ? "cities-bg" : "default-bg"
 
   return (
-    <div className={backGround}>
+    <div className={useBackground()}>
       <Header />
 
       <Routes >
