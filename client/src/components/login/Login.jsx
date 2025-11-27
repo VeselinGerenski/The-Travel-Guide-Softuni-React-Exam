@@ -1,11 +1,33 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import useControlledForm from "../../hooks/useControlledForm.js";
+import UserContext from "../../contexts/UserContext.js";
+import { useContext } from "react";
+
 
 export default function Login() {
+  const { onLogin } = useContext(UserContext);
+  const navigate = useNavigate();
+  const { values, changeHandler, submitHandler } = useControlledForm({ email: '', password: '' }, async (values) => {
+    const { email, password } = values;
+
+    const response = await fetch('http://localhost:3030/users/login', {
+      method: "POST",
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify({ email, password })
+    });
+
+    const result = await response.json()
+
+    onLogin(result);
+    navigate('/')
+  });
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 pt-15 pb-10">
-      <form
-      
+      <form onSubmit={submitHandler}
+
         className="w-full max-w-lg rounded-[32px] bg-[#f3ebdd]/75 backdrop-blur-md border border-amber-900/20 shadow-[0_18px_45px_rgba(0,0,0,0.35)] px-10 py-8 space-y-5"
       >
         {/* Letter header */}
@@ -35,6 +57,8 @@ export default function Login() {
           <input
             type="email"
             name="email"
+            value={values.email}
+            onChange={changeHandler}
             placeholder="you@example.com"
             className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm text-slate-800 focus:outline-none focus:border-amber-600 placeholder:text-slate-400"
           />
@@ -48,6 +72,8 @@ export default function Login() {
           <input
             type="password"
             name="password"
+            value={values.password}
+            onChange={changeHandler}
             placeholder="••••••••"
             className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm text-slate-800 focus:outline-none focus:border-amber-600 placeholder:text-slate-400"
           />
@@ -79,7 +105,7 @@ export default function Login() {
             <button
               type="button"
               className="text-xs text-slate-600 hover:text-amber-700 font-medium underline underline-offset-4"
-            
+
             >
               Forgot your password?
             </button>
