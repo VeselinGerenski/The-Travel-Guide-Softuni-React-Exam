@@ -68,7 +68,7 @@ export default function Catalog() {
 
         {/* Grid */}
         {isLoading ? (
-          <p className="text-center text-slate-700">Loading...</p>
+          <p className="text-center text-2xl text-slate-700">Loading...</p>
         ) : (
           <div className="grid gap-6 md:grid-cols-2">
             {cities.map(city => (
@@ -81,7 +81,7 @@ export default function Catalog() {
           </div>
         )}
 
-        {cities.length === 0 && (
+        {!isLoading && cities.length === 0 && (
           <div className="col-span-full flex flex-col items-center justify-center py-20 text-center">
             <h2 className="text-4xl font-bold text-slate-900 mb-4">
               Oops! No Cities Found

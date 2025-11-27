@@ -33,5 +33,8 @@
 - [X] Add top 3 most liked cities to home page 
 - [X] Add dynamic image heightclass to city card
 - [X] Add dynamic city details
+
+# Crud operations
 - [X] Add create city functionality
-- [X] Add delete handler to city details
+- [X] Add delete city handler
+- [X] Add edit city functionality

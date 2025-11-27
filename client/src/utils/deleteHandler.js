@@ -1,5 +1,5 @@
 
-const deleteHandler = async (city, cityId, navigate) => {
+export default async function deleteHandler(city, cityId, navigate) {
     const isConfirmed = confirm(`Are you sure you want to delete ${city.name}?`);
 
     if (!isConfirmed) {
@@ -18,5 +18,4 @@ const deleteHandler = async (city, cityId, navigate) => {
     } catch (err) {
         alert(err.message)
     }
-}
-export default deleteHandler;
+};

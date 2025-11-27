@@ -1,10 +1,60 @@
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router";
 
 export default function EditCity() {
+  const navigate = useNavigate();
+  const { cityId } = useParams();
+  const [formValues, setFormValues] = useState({});
+
+  useEffect(() => {
+    fetch(`http://localhost:3030/jsonstore/cities/${cityId}`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Unable to edit city");
+        }
+        return response.json()
+      })
+      .then(result => {
+        setFormValues(result)
+      })
+      .catch(err => {
+        alert(err.message)
+      })
+  }, [cityId])
+
+  const changeHandler = (e) => {
+    setFormValues((state) => ({
+      ...state,
+      [e.target.name]: e.target.value
+    }));
+  };
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(`http://localhost:3030/jsonstore/cities/${cityId}`, {
+        method: "PUT",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formValues)
+      })
+
+      if (!response.ok) {
+        throw new Error("Failed to update city");
+      }
+
+      navigate(`/details/${cityId}`)
+    } catch (err) {
+      alert(err.message)
+    }
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 pt-22 pb-10">
-      <form
-       
+      <form onSubmit={submitHandler}
+
         className="w-full max-w-2xl rounded-[32px] bg-[#f3ebdd]/75 backdrop-blur-md border border-amber-900/20 shadow-[0_18px_45px_rgba(0,0,0,0.35)] px-12 py-10 space-y-6"
       >
         {/* letter header */}
@@ -27,6 +77,8 @@ export default function EditCity() {
             <input
               type="text"
               name="name"
+              value={formValues.name}
+              onChange={changeHandler}
               required
               className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm focus:outline-none focus:border-amber-600"
               placeholder="e.g. Tokyo"
@@ -41,6 +93,8 @@ export default function EditCity() {
             <input
               type="text"
               name="country"
+              value={formValues.country}
+              onChange={changeHandler}
               required
               className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm focus:outline-none focus:border-amber-600"
               placeholder="e.g. Japan"
@@ -58,6 +112,8 @@ export default function EditCity() {
             <input
               type="number"
               name="population"
+              value={formValues.population}
+              onChange={changeHandler}
               required
               className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm focus:outline-none focus:border-amber-600"
               placeholder="e.g. 37400000"
@@ -72,6 +128,8 @@ export default function EditCity() {
             <input
               type="text"
               name="imageUrl"
+              value={formValues.imageUrl}
+              onChange={changeHandler}
               required
               className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm focus:outline-none focus:border-amber-600"
               placeholder="Direct link to an image"
@@ -86,6 +144,8 @@ export default function EditCity() {
           </label>
           <textarea
             name="description"
+            value={formValues.description}
+            onChange={changeHandler}
             required
             rows="2"
             className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm leading-relaxed focus:outline-none focus:border-amber-600 text-center"
