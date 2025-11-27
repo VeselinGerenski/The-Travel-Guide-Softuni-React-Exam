@@ -28,5 +28,9 @@
  # Dynamic data integration
 
 - [X] Add Softuni practice server and cities data
-- [X] Add 
-
+- [X] Add City card
+- [X] Add Dynamic cities to catalog page
+- [X] Add top 3 most liked cities to home page 
+- [X] Add dynamic image heightclass to city card
+- [X] Add dynamic city details
+- [X] Add create city functionality

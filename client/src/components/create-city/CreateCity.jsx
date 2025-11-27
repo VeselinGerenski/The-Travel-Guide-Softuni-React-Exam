@@ -1,12 +1,50 @@
+import { useState } from "react";
+import { useNavigate } from "react-router";
 
-
+const initialValues = {
+  name: "",
+  country: "",
+  population: "",
+  imageUrl: "",
+  description: "",
+}
 
 export default function CreateCity() {
+  const navigate = useNavigate();
+  const [formValues, setFormValues] = useState(initialValues)
+
+  const changeHandler = (e) => {
+    const { name, value } = e.target;
+
+    setFormValues((state) => ({
+      ...state,
+      [name]: value
+    }));
+  };
+
+  const SubmitHandler = async (e) => {
+    e.preventDefault();
+    
+    try {
+      await fetch('http://localhost:3030/jsonstore/cities', {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formValues)
+      })
+
+      setFormValues(initialValues);
+
+      navigate('/catalog')
+    } catch (err) {
+      alert(err.message)
+    }
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 pt-22 pb-10">
-      <form
-       
+      <form onSubmit={SubmitHandler}
         className="w-full max-w-2xl rounded-[32px] bg-[#f3ebdd]/75 backdrop-blur-md border border-amber-900/20 shadow-[0_18px_45px_rgba(0,0,0,0.35)] px-12 py-10 space-y-8"
       >
         {/* Letter header */}
@@ -29,6 +67,8 @@ export default function CreateCity() {
             <input
               type="text"
               name="name"
+              value={formValues.name}
+              onChange={changeHandler}
               required
               className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm focus:outline-none focus:border-amber-600 text-center"
               placeholder="e.g. Tokyo"
@@ -43,6 +83,8 @@ export default function CreateCity() {
             <input
               type="text"
               name="country"
+              value={formValues.country}
+              onChange={changeHandler}
               required
               className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm focus:outline-none focus:border-amber-600 text-center"
               placeholder="e.g. Japan"
@@ -60,6 +102,8 @@ export default function CreateCity() {
             <input
               type="number"
               name="population"
+              value={formValues.population}
+              onChange={changeHandler}
               required
               className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm focus:outline-none focus:border-amber-600 text-center"
               placeholder="e.g. 37400000"
@@ -74,6 +118,8 @@ export default function CreateCity() {
             <input
               type="text"
               name="imageUrl"
+              value={formValues.imageUrl}
+              onChange={changeHandler}
               required
               className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm focus:outline-none focus:border-amber-600 text-center"
               placeholder="Direct link to an image"
@@ -89,8 +135,8 @@ export default function CreateCity() {
           <textarea
             name="description"
             required
-            // value={formValues.description}
-            // onChange={changeHandler}
+            value={formValues.description}
+            onChange={changeHandler}
             rows="2"
             className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm leading-relaxed focus:outline-none focus:border-amber-600 text-center"
             placeholder="Describe this city..."
