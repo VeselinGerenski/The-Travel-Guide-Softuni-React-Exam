@@ -34,3 +34,4 @@
 - [X] Add dynamic image heightclass to city card
 - [X] Add dynamic city details
 - [X] Add create city functionality
+- [X] Add delete handler to city details

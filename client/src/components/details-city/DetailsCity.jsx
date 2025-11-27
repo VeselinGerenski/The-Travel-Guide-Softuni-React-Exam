@@ -2,6 +2,7 @@ import { useParams, useNavigate, Link } from "react-router";
 import CreateComment from "./create-comment/CreateComment.jsx";
 import DetailsComment from "./details-comment/DetailsComment.jsx";
 import { useEffect, useState } from "react";
+import deleteHandler from "../../utils/deleteHandler.js";
 
 export default function DetailsCity({
   heightClass = "h-65"
@@ -106,7 +107,9 @@ export default function DetailsCity({
               Edit
             </Link>
 
-            <button className="px-4 py-1.5 rounded-full bg-red-700 text-white text-xs font-semibold hover:bg-red-600 transition shadow-sm">
+            <button
+              onClick={() => deleteHandler(city, cityId, navigate)}
+              className="px-4 py-1.5 rounded-full bg-red-700 text-white text-xs font-semibold hover:bg-red-600 transition shadow-sm">
               Delete
             </button>
           </div>

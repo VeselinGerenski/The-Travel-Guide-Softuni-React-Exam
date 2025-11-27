@@ -1,10 +1,8 @@
 export default function CreateComment() {
     return (
-
         <form className="mt-2 flex gap-2">
             <input
                 type="text"
-
                 placeholder="Write a comment..."
                 className="flex-1 px-3 py-1.5 rounded-xl border border-slate-300 text-xs focus:outline-none focus:ring-2 focus:ring-amber-600"
             />
