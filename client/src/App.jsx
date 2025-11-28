@@ -11,42 +11,36 @@ import EditCity from "./components/edit-city/EditCity.jsx"
 import Page404 from "./components/page-404/Page404.jsx"
 import useBackground from "./hooks/useBackground.js"
 import UserContext from "./contexts/UserContext.js"
-import { useState } from "react"
+import useAuth from "./hooks/useAuth.js"
+import GuestGuard from "./components/guards/GuestGuard.jsx"
+import AuthGuard from "./components/guards/AuthGuard.jsx"
 
 function App() {
-  const [user, setUser] = useState({});
-
-  const loginHandler = (user) => {
-    setUser(user) 
-  };
-
-  const logoutHandler = () => {
-    setUser({})
-  }
-
-  const contextValue = {
-    user,
-    isAuthenticated: !!user.email,
-    onLogin: loginHandler,
-    onLogout: logoutHandler,
-  }
+  const auth = useAuth()
 
   return (
     <div className={useBackground()}>
-      <UserContext.Provider value={contextValue}>
+      <UserContext.Provider value={auth}>
         <Header />
 
         <Routes >
           <Route path="/" element={<Home />} />
           <Route path="/Catalog" element={<Catalog />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/create" element={<CreateCity />} />
           <Route path="/details/:cityId" element={<DetailsCity />} />
-          <Route path="/edit/:cityId" element={<EditCity />} />
+
+          <Route element={<GuestGuard />}>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+          </Route>
+
+          <Route element={<AuthGuard />}>
+            <Route path="/create" element={<CreateCity />} />
+            <Route path="/edit/:cityId" element={<EditCity />} />
+          </Route>
 
           <Route path="*" element={<Page404 />} />
         </Routes>
+
         <Footer />
 
       </UserContext.Provider>

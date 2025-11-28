@@ -48,17 +48,16 @@ export default function Header() {
                                 <li>
                                     <Link to="/catalog" className="ink-link inline-block text-3xl hover-scale">Catalog</Link>
                                 </li>
-
-                                <li>
-                                    <Link to="/register" className="ink-link inline-block text-3xl hover-scale">Register</Link>
-                                </li>
-
+                                
                                 <li>
                                     <Link to="/login" className="ink-link inline-block text-3xl hover-scale">
                                         Login 
                                     </Link>
                                 </li>
 
+                                <li>
+                                    <Link to="/register" className="ink-link inline-block text-3xl hover-scale">Register</Link>
+                                </li>
                             </>
                         }
                     </ul>
@@ -67,11 +66,11 @@ export default function Header() {
 
                 {/* Right - Login/Email */}
                 <div className="hidden lg:block text-3xl font-semibold tracking-wide ml-6">
-                    {isAuthenticated ? (
+                    {isAuthenticated && (
                         <div>
                             <p className="ink-link inline-block text-m flex items-center gap-2 hover-scale cursor-pointer">{user.email}</p>
                         </div>)
-                        : ""}
+                       }
 
                 </div>
 

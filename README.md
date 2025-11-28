@@ -34,10 +34,14 @@
 
 # Crud operations
 - [X] Add create city functionality
-- [X] Add delete city handler
+- [X] Create delete city handler
 - [X] Add edit city functionality
 
 # Authentication
 - [X] Add controlled form hook
 - [X] Implement login functionality
-- [X] Add 
+- [X] Add user state to App component
+- [X] Move user logic from App to useAuth hook
+- [X] Create Auth Guard
+- [X] Create Guest Guard
+
