@@ -1,12 +1,12 @@
-import { useContext } from "react";
+
 import { Link, useLocation } from "react-router";
-import UserContext from "../../contexts/UserContext.js";
+import { useUserContext } from "../../contexts/UserContext.js";
 
 export default function Header() {
     const { pathname } = useLocation();
     const isCatalogPage = pathname === "/catalog";
 
-    const { isAuthenticated, onLogout, user } = useContext(UserContext);
+    const { isAuthenticated, user } = useUserContext()
 
     return (
 
@@ -40,7 +40,7 @@ export default function Header() {
                                 </li>
 
                                 <li>
-                                    <button onClick={onLogout} className="ink-link inline-block text-3xl hover-scale cursor-pointer">Logout</button>
+                                    <Link to="/logout" className="ink-link inline-block text-3xl hover-scale">Logout</Link>
                                 </li>
                             </>
                             :
@@ -48,10 +48,10 @@ export default function Header() {
                                 <li>
                                     <Link to="/catalog" className="ink-link inline-block text-3xl hover-scale">Catalog</Link>
                                 </li>
-                                
+
                                 <li>
                                     <Link to="/login" className="ink-link inline-block text-3xl hover-scale">
-                                        Login 
+                                        Login
                                     </Link>
                                 </li>
 
@@ -70,7 +70,7 @@ export default function Header() {
                         <div>
                             <p className="ink-link inline-block text-m flex items-center gap-2 hover-scale cursor-pointer">{user.email}</p>
                         </div>)
-                       }
+                    }
 
                 </div>
 
