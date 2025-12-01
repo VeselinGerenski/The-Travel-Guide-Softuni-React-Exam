@@ -1334,7 +1334,7 @@
     };
     var seedData = {
         
-        games: {
+       cities: {
            "5c7d8f0e-3a9b-4c2d-9e1f-6a4b3c8d2e7a": {
             "_ownerId": "35c62d76-8152-4626-8712-eeb96381bea8",
             "title": "The Witcher 3",

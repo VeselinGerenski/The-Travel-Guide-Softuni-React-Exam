@@ -5,6 +5,7 @@ const UserContext = createContext({
     isAuthenticated: false,
     onLogin() {},
     onLogout() {},
+    onDelete() {},
 });
 
 export default UserContext;

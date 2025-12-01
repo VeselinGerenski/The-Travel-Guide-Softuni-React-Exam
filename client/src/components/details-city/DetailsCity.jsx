@@ -1,12 +1,16 @@
 import { useParams, useNavigate, Link } from "react-router";
 import CreateComment from "./create-comment/CreateComment.jsx";
 import DetailsComment from "./details-comment/DetailsComment.jsx";
-import { useEffect, useState } from "react";
-import deleteHandler from "../../utils/deleteHandler.js";
+import { useContext, useEffect, useState } from "react";
+import UserContext from "../../contexts/UserContext.js";
+
 
 export default function DetailsCity({
   heightClass = "h-65"
 }) {
+
+  const { onDelete, isAuthenticated } = useContext(UserContext)
+
   const navigate = useNavigate();
   const { cityId } = useParams();
   const [city, setCity] = useState(null);
@@ -108,7 +112,7 @@ export default function DetailsCity({
             </Link>
 
             <button
-              onClick={() => deleteHandler(city, cityId, navigate)}
+              onClick={() => onDelete(isAuthenticated, city, cityId, navigate)}
               className="px-4 py-1.5 rounded-full bg-red-700 text-white text-xs font-semibold hover:bg-red-600 transition shadow-sm cursor-pointer">
               Delete
             </button>

@@ -59,6 +59,7 @@ export default function Login() {
             name="email"
             value={values.email}
             onChange={changeHandler}
+            required
             placeholder="you@example.com"
             className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm text-slate-800 focus:outline-none focus:border-amber-600 placeholder:text--slate-400 cursor-pointer"
           />
@@ -74,6 +75,7 @@ export default function Login() {
             name="password"
             value={values.password}
             onChange={changeHandler}
+            required
             placeholder="••••••••"
             className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm text-slate-800 focus:outline-none focus:border-amber-600 placeholder:text--slate-400 cursor-pointer"
           />
