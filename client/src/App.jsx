@@ -12,6 +12,7 @@ import Page404 from "./components/page-404/Page404.jsx"
 import useBackground from "./hooks/useBackground.js"
 import GuestGuard from "./components/guards/GuestGuard.jsx"
 import AuthGuard from "./components/guards/AuthGuard.jsx"
+import Logout from "./components/logout/Logout.jsx"
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
         </Route>
 
         <Route element={<AuthGuard />}>
+          <Route path="/logout" element={<Logout />} />
           <Route path="/create" element={<CreateCity />} />
           <Route path="/edit/:cityId" element={<EditCity />} />
         </Route>
