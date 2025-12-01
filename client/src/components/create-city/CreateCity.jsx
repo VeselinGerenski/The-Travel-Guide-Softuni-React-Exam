@@ -1,5 +1,7 @@
-import { useState } from "react";
+
 import { useNavigate } from "react-router";
+import useForm from "../../hooks/useForm.js";
+import useRequest from "../../hooks/useRequest.js";
 
 const initialValues = {
   name: "",
@@ -7,34 +9,20 @@ const initialValues = {
   population: "",
   imageUrl: "",
   description: "",
+  likes: 0,
 }
 
 export default function CreateCity() {
   const navigate = useNavigate();
-  const [formValues, setFormValues] = useState(initialValues)
+  const { request } = useRequest();
 
-  const changeHandler = (e) => {
-    const { name, value } = e.target;
-
-    setFormValues((state) => ({
-      ...state,
-      [name]: value
-    }));
-  };
-
-  const SubmitHandler = async (e) => {
-    e.preventDefault();
+  const createCityHandler = async (values) => {
+    const data = values;
     
-    try {
-      await fetch('http://localhost:3030/jsonstore/cities', {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formValues)
-      })
+    data.population = Number(data.population);
 
-      setFormValues(initialValues);
+    try {
+      await request('/data/cities', 'POST', data)
 
       navigate('/catalog')
     } catch (err) {
@@ -42,9 +30,11 @@ export default function CreateCity() {
     }
   }
 
+  const { register, formAction } = useForm(createCityHandler, initialValues);
+
   return (
     <div className="min-h-screen flex items-center cursor-pointer justify-center cursor-pointer px-4 pt-22 pb-10">
-      <form onSubmit={SubmitHandler}
+      <form action={formAction}
         className="w-full max-w-2xl rounded-[32px] bg-[#f3ebdd]/75 backdrop-blur-md border border-amber-900/20 shadow-[0_18px_45px_rgba(0,0,0,0.35)] px-12 py-10 space-y-8"
       >
         {/* Letter header */}
@@ -66,10 +56,8 @@ export default function CreateCity() {
             </label>
             <input
               type="text"
-              name="name"
-              value={formValues.name}
-              onChange={changeHandler}
               required
+              {...register('name')}
               className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm focus:outline-none focus:border-amber-600 text-center cursor-pointer"
               placeholder="e.g. Tokyo"
             />
@@ -82,10 +70,8 @@ export default function CreateCity() {
             </label>
             <input
               type="text"
-              name="country"
-              value={formValues.country}
-              onChange={changeHandler}
               required
+              {...register('country')}
               className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm focus:outline-none focus:border-amber-600 text-center cursor-pointer"
               placeholder="e.g. Japan"
             />
@@ -101,10 +87,8 @@ export default function CreateCity() {
             </label>
             <input
               type="number"
-              name="population"
-              value={formValues.population}
-              onChange={changeHandler}
               required
+              {...register('population')}
               className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm focus:outline-none focus:border-amber-600 text-center cursor-pointer"
               placeholder="e.g. 37400000"
             />
@@ -117,10 +101,8 @@ export default function CreateCity() {
             </label>
             <input
               type="text"
-              name="imageUrl"
-              value={formValues.imageUrl}
-              onChange={changeHandler}
               required
+              {...register('imageUrl')}
               className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm focus:outline-none focus:border-amber-600 text-center cursor-pointer"
               placeholder="Direct link to an image"
             />
@@ -133,11 +115,9 @@ export default function CreateCity() {
             Description
           </label>
           <textarea
-            name="description"
             required
-            value={formValues.description}
-            onChange={changeHandler}
             rows="2"
+            {...register('description')}
             className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm leading-relaxed focus:outline-none focus:border-amber-600 text-center cursor-pointer "
             placeholder="Describe this city..."
           />

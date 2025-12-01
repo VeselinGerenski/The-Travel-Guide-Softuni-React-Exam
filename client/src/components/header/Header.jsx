@@ -28,39 +28,41 @@ export default function Header() {
                 {/* Navigation - Center */}
                 <div className="absolute left-[50%] -translate-x-1/2">
 
-                    {!isCatalogPage && (<ul className="hidden lg:flex gap-16 text-2xl font-semibold tracking-wide">
-                        <li>
-                            <Link to="/" className="ink-link inline-block text-3xl hover-scale">Home</Link>
-                        </li>
+                    {!isCatalogPage && (
+                        <ul className="hidden lg:flex gap-16 text-2xl font-semibold tracking-wide">
+                            <li>
+                                <Link to="/" className="ink-link inline-block text-3xl hover-scale">Home</Link>
+                            </li>
+                            
+                            <li>
+                                <Link to="/catalog" className="ink-link inline-block text-3xl hover-scale">Catalog</Link>
+                            </li>
 
-                        {isAuthenticated ?
-                            <>
-                                <li>
-                                    <Link to="/create" className="ink-link inline-block text-3xl hover-scale">Add City</Link>
-                                </li>
+                            {isAuthenticated ?
+                                <>
+                                    <li>
+                                        <Link to="/create" className="ink-link inline-block text-3xl hover-scale">Add City</Link>
+                                    </li>
 
-                                <li>
-                                    <Link to="/logout" className="ink-link inline-block text-3xl hover-scale">Logout</Link>
-                                </li>
-                            </>
-                            :
-                            <>
-                                <li>
-                                    <Link to="/catalog" className="ink-link inline-block text-3xl hover-scale">Catalog</Link>
-                                </li>
+                                    <li>
+                                        <Link to="/logout" className="ink-link inline-block text-3xl hover-scale">Logout</Link>
+                                    </li>
+                                </>
+                                :
+                                <>
 
-                                <li>
-                                    <Link to="/login" className="ink-link inline-block text-3xl hover-scale">
-                                        Login
-                                    </Link>
-                                </li>
+                                    <li>
+                                        <Link to="/login" className="ink-link inline-block text-3xl hover-scale">
+                                            Login
+                                        </Link>
+                                    </li>
 
-                                <li>
-                                    <Link to="/register" className="ink-link inline-block text-3xl hover-scale">Register</Link>
-                                </li>
-                            </>
-                        }
-                    </ul>
+                                    <li>
+                                        <Link to="/register" className="ink-link inline-block text-3xl hover-scale">Register</Link>
+                                    </li>
+                                </>
+                            }
+                        </ul>
                     )}
                 </div>
 
