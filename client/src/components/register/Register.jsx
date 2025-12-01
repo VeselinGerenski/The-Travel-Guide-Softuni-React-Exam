@@ -1,10 +1,39 @@
-import { Link } from "react-router";
+
+import { Link, useNavigate } from "react-router";
+import useForm from "../../hooks/useForm.js";
+import { useUserContext } from "../../contexts/UserContext.js";
+
 
 export default function Register() {
+  const { registerHandler } = useUserContext();
+  const navigate = useNavigate()
+
+  const registerSubmitHandler = async (values) => {
+    const { email, password, repeatPassword } = values;
+
+    if (password !== repeatPassword) {
+      alert(`Password doesn't match`)
+    }
+
+    try {
+      registerHandler(email, password);
+
+      navigate('/')
+    } catch (err) {
+      alert(err.message)
+    }
+
+  }
+
+  const { register, formAction } = useForm(registerSubmitHandler, {
+    email: '',
+    password: '',
+    repeatPassword: '',
+  });
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 pt-20 pb-10">
-      <form
+      <form action={formAction}
         className="w-full max-w-lg rounded-[32px] bg-[#f3ebdd]/75 backdrop-blur-md border border-amber-900/20 shadow-[0_18px_45px_rgba(0,0,0,0.35)] px-10 py-8 space-y-5"
       >
         {/* Letter header */}
@@ -33,8 +62,9 @@ export default function Register() {
           </label>
           <input
             type="email"
-            name="email"
             placeholder="you@example.com"
+            {...register('email')}
+            required
             className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm text-slate-800 focus:outline-none focus:border-amber-600 placeholder:text-slate-400 cursor-pointer"
           />
         </div>
@@ -48,6 +78,8 @@ export default function Register() {
             type="password"
             name="password"
             placeholder="••••••••"
+            {...register('password')}
+            required
             className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm text-slate-800 focus:outline-none focus:border-amber-600 placeholder:text-slate-400 cursor-pointer"
           />
         </div>
@@ -59,8 +91,9 @@ export default function Register() {
           </label>
           <input
             type="password"
-            name="repeatPassword"
             placeholder="••••••••"
+            {...register('repeatPassword')}
+            required
             className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm text-slate-800 focus:outline-none focus:border-amber-600 placeholder:text-slate-400 cursor-pointer"
           />
         </div>
