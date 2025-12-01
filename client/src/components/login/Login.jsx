@@ -1,32 +1,29 @@
 import { Link, useNavigate } from "react-router";
-import useControlledForm from "../../hooks/useControlledForm.js";
-import UserContext from "../../contexts/UserContext.js";
-import { useContext } from "react";
-
+import useForm from "../../hooks/useForm.js";
+import { useUserContext } from "../../contexts/UserContext.js";
 
 export default function Login() {
-  const { onLogin } = useContext(UserContext);
   const navigate = useNavigate();
-  const { values, changeHandler, submitHandler } = useControlledForm({ email: '', password: '' }, async (values) => {
-    const { email, password } = values;
+  const { loginHandler } = useUserContext()
 
-    const response = await fetch('http://localhost:3030/users/login', {
-      method: "POST",
-      headers: {
-        'Content-type': 'application/json'
-      },
-      body: JSON.stringify({ email, password })
-    });
+  const submitHandler = async ({ email, password }) => {
 
-    const result = await response.json()
+    try {
 
-    onLogin(result);
-    navigate('/')
-  });
+      loginHandler(email, password);
+
+      navigate('/');
+    } catch (err) {
+      alert(err.message);
+    }
+
+  }
+
+  const { register, formAction } = useForm(submitHandler, { email: '', password: '' })
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 pt-15 pb-10">
-      <form onSubmit={submitHandler}
+      <form action={formAction}
 
         className="w-full max-w-lg rounded-[32px] bg-[#f3ebdd]/75 backdrop-blur-md border border-amber-900/20 shadow-[0_18px_45px_rgba(0,0,0,0.35)] px-10 py-8 space-y-5"
       >
@@ -56,11 +53,9 @@ export default function Login() {
           </label>
           <input
             type="email"
-            name="email"
-            value={values.email}
-            onChange={changeHandler}
             required
             placeholder="you@example.com"
+            {...register('email')}
             className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm text-slate-800 focus:outline-none focus:border-amber-600 placeholder:text--slate-400 cursor-pointer"
           />
         </div>
@@ -72,11 +67,9 @@ export default function Login() {
           </label>
           <input
             type="password"
-            name="password"
-            value={values.password}
-            onChange={changeHandler}
             required
             placeholder="••••••••"
+            {...register('password')}
             className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm text-slate-800 focus:outline-none focus:border-amber-600 placeholder:text--slate-400 cursor-pointer"
           />
         </div>
