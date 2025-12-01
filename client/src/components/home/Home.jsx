@@ -1,20 +1,16 @@
 import { useEffect, useState } from "react";
 import CityCard from "../city-card/CityCard.jsx";
+import useRequest from "../../hooks/useRequest.js";
 
 export default function Home() {
     const [cities, setCities] = useState([])
     const [isLoading, setIsLoading] = useState(true)
+    const { request } = useRequest();
 
     useEffect(() => {
-        fetch('http://localhost:3030/jsonstore/cities')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Unable to load cities");
-                }
-                return response.json()
-            })
+        request('/data/cities?sortBy=likes%20desc&pageSize=3')
             .then(result => {
-                setCities(Object.values(result))
+              setCities(result)
             })
             .catch(err => {
                 alert(err.message)
@@ -22,7 +18,7 @@ export default function Home() {
             .finally(() => {
                 setIsLoading(false)
             })
-    }, [])
+    }, [request])
 
 
     return (
@@ -66,18 +62,15 @@ export default function Home() {
                     <p className="text-center text-2xl text-slate-700">Loading...</p>
                     : (
                         <div className="grid gap-7 md:grid-cols-3">
-                            {cities
-                                .sort((a, b) => b.likes - a.likes)
-                                .slice(0, 3)
-                                .map(city => (
-                                    <CityCard
-                                        key={city._id}
-                                        {...city}
-                                        heightClass="h-72"
-                                    />
-                                ))}
+                            {cities.map(city => (
+                                <CityCard
+                                    key={city._id}
+                                    {...city}
+                                    heightClass="h-72"
+                                />
+                            ))}
                         </div>
-                    )};
+                    )}
 
                 {!isLoading && cities.length === 0 && (
                     <div className="col-span-full flex flex-col items-center justify-center py-20 text-center">

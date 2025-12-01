@@ -1,23 +1,19 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import CityCard from "../city-card/CityCard.jsx";
+import useRequest from "../../hooks/useRequest.js";
 
 export default function Catalog() {
   const navigate = useNavigate();
 
   const [cities, setCities] = useState([]);
   const [isLoading, setIsLoading] = useState(true)
+  const { request } = useRequest();
 
   useEffect(() => {
-    fetch('http://localhost:3030/jsonstore/cities')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Failed to fetch cities');
-        }
-        return response.json();
-      })
+    request('/data/cities')
       .then(result => {
-        setCities(Object.values(result));
+        setCities(result)
       })
       .catch(err => {
         alert(err.message);
@@ -25,7 +21,7 @@ export default function Catalog() {
       .finally(() => {
         setIsLoading(false);
       });
-  }, []);
+  }, [request]);
 
   return (
     <div className="min-h-screen flex justify-center px-4 pt-5 pb-10">
