@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export default function useControlledForm(callback,initialValues) {
+export default function useForm(callback,initialValues) {
     const [values, setValues] = useState(initialValues)
 
     const changeHandler = (e) => {
