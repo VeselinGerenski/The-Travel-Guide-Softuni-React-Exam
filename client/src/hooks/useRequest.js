@@ -28,9 +28,12 @@ export default function useRequest() {
 
         const response = await fetch(`${baseurl}${url}`, options);
 
-        if (!response.ok) throw response.statusText;
-
-        if (response.status === 204) return {};
+        if (!response.ok) {
+          alert("❌ Unable to complete request.");
+        }
+        if (response.status === 204) {
+            return {};
+        }
 
         return await response.json();
     }, [user, isAuthenticated]);

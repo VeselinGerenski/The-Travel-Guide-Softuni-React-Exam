@@ -4,8 +4,8 @@ import useRequest from "../../hooks/useRequest.js";
 import Spinner from "../spinner/Spinner.jsx";
 
 export default function Home() {
-    const [cities, setCities] = useState([])
-    const [isLoading, setIsLoading] = useState(true)
+    const [cities, setCities] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
     const { request } = useRequest();
 
     useEffect(() => {
@@ -67,7 +67,7 @@ export default function Home() {
                                 <CityCard
                                     key={city._id}
                                     {...city}
-                                    heightClass="h-72"
+                                    heightClass="h-80"
                                 />
                             ))}
                         </div>

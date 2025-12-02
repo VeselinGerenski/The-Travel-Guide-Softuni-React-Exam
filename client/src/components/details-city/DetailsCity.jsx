@@ -39,20 +39,15 @@ export default function DetailsCity({
   }
 
   const deleteCityHandler = async (city) => {
-
     const isConfirmed = confirm(`Are you sure you want to delete ${city.name}?`);
 
     if (!isConfirmed) {
       return;
     }
 
-    try {
-      await request(`/data/cities/${cityId}`, 'DELETE')
+    await request(`/data/cities/${cityId}`, 'DELETE')
 
-      navigate(-1)
-    } catch (err) {
-      alert(err.message)
-    }
+    navigate(-1)
   };
 
   const refreshHandler = () => {
