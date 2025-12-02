@@ -34,6 +34,7 @@ export default function CreateComment({
             <input
                 type="text"
                 placeholder="Write a comment..."
+                required
                 disabled={!user}
                 {...register('comment')}
                 className="flex-1 px-3 py-1.5 rounded-xl border border-slate-300 text-xs focus:outline-none focus:ring-2 focus:ring-amber-600"

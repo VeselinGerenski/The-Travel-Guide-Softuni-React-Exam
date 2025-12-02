@@ -6,7 +6,7 @@ import useRequest from "../../hooks/useRequest.js";
 import { useUserContext } from "../../contexts/UserContext.js";
 
 export default function DetailsCity({
-  heightClass = "h-65"
+  heightClass = "h-60"
 }) {
   const { user, isAuthenticated } = useUserContext();
   const navigate = useNavigate();
@@ -85,11 +85,11 @@ export default function DetailsCity({
               {city.country}
             </p>
 
-            <h1 className="mt-1 text-3xl font-semibold text-slate-900 font-['Playfair_Display']">
+            <h1 className="mt-0.5 text-3xl font-semibold text-slate-900 font-['Playfair_Display']">
               {city.name}
             </h1>
 
-            <p className="mt-1 text-xs text-slate-700 italic">
+            <p className="mt-0.5 text-xs text-slate-700 italic">
               Population: {city.population.toLocaleString()} people
             </p>
           </div>
@@ -117,7 +117,7 @@ export default function DetailsCity({
 
             <button
               onClick={() => deleteCityHandler(city)}
-              className="px-4 py-1.5 rounded-full bg-red-700 text-white text-xs font-semibold hover:bg-red-600 transition shadow-sm cursor-pointer">
+              className="px-4 py-1.5 rounded-full bg-red-700 text-white text-xs font-semibold hover:bg-red-800 transition shadow-sm cursor-pointer">
               Delete
             </button>
           </div>
@@ -128,7 +128,7 @@ export default function DetailsCity({
             <h2 className="text-sm font-semibold text-slate-900 mb-1">Comments</h2>
 
             <div className="max-h-[300px] overflow-y-auto flex flex-col gap-2">
-              <DetailsComment cityId={cityId} refresh={refresh} />
+              <DetailsComment cityId={cityId} refresh={refresh} onDelete={refreshHandler}/>
             </div>
 
             {isAuthenticated && (
