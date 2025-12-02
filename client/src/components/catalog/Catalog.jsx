@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import CityCard from "../city-card/CityCard.jsx";
 import useRequest from "../../hooks/useRequest.js";
+import Spinner from "../spinner/Spinner.jsx";
 
 export default function Catalog() {
   const navigate = useNavigate();
@@ -64,7 +65,7 @@ export default function Catalog() {
 
         {/* Grid */}
         {isLoading ? (
-          <p className="text-center text-2xl text-slate-700">Loading...</p>
+         <Spinner />
         ) : (
           <div className="grid gap-6 md:grid-cols-2">
             {cities.map(city => (

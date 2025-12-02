@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import CityCard from "../city-card/CityCard.jsx";
 import useRequest from "../../hooks/useRequest.js";
+import Spinner from "../spinner/Spinner.jsx";
 
 export default function Home() {
     const [cities, setCities] = useState([])
@@ -10,7 +11,7 @@ export default function Home() {
     useEffect(() => {
         request('/data/cities?sortBy=likes%20desc&pageSize=3')
             .then(result => {
-              setCities(result)
+                setCities(result)
             })
             .catch(err => {
                 alert(err.message)
@@ -59,7 +60,7 @@ export default function Home() {
 
                 {/* Cards */}
                 {isLoading ?
-                    <p className="text-center text-2xl text-slate-700">Loading...</p>
+                    <Spinner />
                     : (
                         <div className="grid gap-7 md:grid-cols-3">
                             {cities.map(city => (
