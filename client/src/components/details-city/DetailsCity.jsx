@@ -128,7 +128,7 @@ export default function DetailsCity({
             <h2 className="text-sm font-semibold text-slate-900 mb-1">Comments</h2>
 
             <div className="max-h-[300px] overflow-y-auto flex flex-col gap-2">
-              <DetailsComment cityId={cityId} refresh={refresh} onDelete={refreshHandler}/>
+              <DetailsComment cityId={cityId} refresh={refresh} refreshHandler={refreshHandler}/>
             </div>
 
             {isAuthenticated && (

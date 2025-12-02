@@ -12,7 +12,7 @@ export default function useRequest() {
 
         if (method) options.method = method;
 
-        if (data) {
+        if (data!== undefined) {
             options.headers = {
                 'content-type': 'application/json'
             };
