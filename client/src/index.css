@@ -66,3 +66,8 @@ body {
   filter: blur(2px);
   /* ink spreads */
 }
+
+.comment-text {
+  display: inline;
+  margin-left: 0.25rem; /* small gap after username */
+}

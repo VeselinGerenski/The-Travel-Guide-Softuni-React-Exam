@@ -1,9 +1,41 @@
-export default function CreateComment() {
+
+import useForm from "../../../hooks/useForm.js";
+import useRequest from "../../../hooks/useRequest.js";
+
+export default function CreateComment({
+    user,
+    onCreate,
+    cityId,
+}) {
+    const { request } = useRequest();
+
+    const commentHandler = async ({ comment }) => {
+        try {
+            await request('/data/comments', 'POST', {
+                message: comment,
+                cityId: cityId,
+                createdAt: new Date().toISOString()
+            });
+
+            onCreate();
+        } catch (err) {
+            alert(err.message)
+        }
+    }
+
+    const { register, formAction } = useForm(commentHandler, {
+        comment: ''
+    })
+
     return (
-        <form className="mt-2 flex gap-2">
+        <form
+            action={formAction}
+            className="mt-2 flex gap-2">
             <input
                 type="text"
                 placeholder="Write a comment..."
+                disabled={!user}
+                {...register('comment')}
                 className="flex-1 px-3 py-1.5 rounded-xl border border-slate-300 text-xs focus:outline-none focus:ring-2 focus:ring-amber-600"
             />
             <button

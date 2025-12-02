@@ -1,60 +1,51 @@
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
 import { useNavigate, useParams } from "react-router";
+import useRequest from "../../hooks/useRequest.js";
+import useForm from "../../hooks/useForm.js";
+
+const initialValues = {
+  name: "",
+  country: "",
+  population: "",
+  imageUrl: "",
+  description: "",
+  likes: 0,
+}
 
 export default function EditCity() {
   const navigate = useNavigate();
   const { cityId } = useParams();
-  const [formValues, setFormValues] = useState({});
+  const { request } = useRequest();
+
+  const EditCityHandler = async (values) => {
+
+    try {
+      await request(`/data/cities/${cityId}`, 'PUT', values)
+
+      navigate(-1)
+    } catch (err) {
+      alert(err.message)
+    }
+
+  }
+
+  const { register, setValues, formAction } = useForm(EditCityHandler, initialValues)
 
   useEffect(() => {
-    fetch(`http://localhost:3030/jsonstore/cities/${cityId}`)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error("Unable to edit city");
-        }
-        return response.json()
-      })
+    request(`/data/cities/${cityId}`)
       .then(result => {
-        setFormValues(result)
+        setValues(result)
       })
       .catch(err => {
         alert(err.message)
       })
-  }, [cityId])
+  }, [cityId, request, setValues])
 
-  const changeHandler = (e) => {
-    setFormValues((state) => ({
-      ...state,
-      [e.target.name]: e.target.value
-    }));
-  };
-
-  const submitHandler = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await fetch(`http://localhost:3030/jsonstore/cities/${cityId}`, {
-        method: "PUT",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formValues)
-      })
-
-      if (!response.ok) {
-        throw new Error("Failed to update city");
-      }
-
-      navigate(`/details/${cityId}`)
-    } catch (err) {
-      alert(err.message)
-    }
-  }
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 pt-22 pb-10">
-      <form onSubmit={submitHandler}
-
+      <form
+        action={formAction}
         className="w-full max-w-2xl rounded-[32px] bg-[#f3ebdd]/75 backdrop-blur-md border border-amber-900/20 shadow-[0_18px_45px_rgba(0,0,0,0.35)] px-12 py-10 space-y-6"
       >
         {/* letter header */}
@@ -76,10 +67,8 @@ export default function EditCity() {
             </label>
             <input
               type="text"
-              name="name"
-              value={formValues.name}
-              onChange={changeHandler}
               required
+              {...register('name')}
               className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm focus:outline-none focus:border-amber-600 cursor-pointer"
               placeholder="e.g. Tokyo"
             />
@@ -92,10 +81,8 @@ export default function EditCity() {
             </label>
             <input
               type="text"
-              name="country"
-              value={formValues.country}
-              onChange={changeHandler}
               required
+              {...register('country')}
               className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm focus:outline-none focus:border-amber-600 cursor-pointer"
               placeholder="e.g. Japan"
             />
@@ -111,10 +98,8 @@ export default function EditCity() {
             </label>
             <input
               type="number"
-              name="population"
-              value={formValues.population}
-              onChange={changeHandler}
               required
+              {...register('population')}
               className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm focus:outline-none focus:border-amber-600 cursor-pointer"
               placeholder="e.g. 37400000"
             />
@@ -127,10 +112,8 @@ export default function EditCity() {
             </label>
             <input
               type="text"
-              name="imageUrl"
-              value={formValues.imageUrl}
-              onChange={changeHandler}
               required
+              {...register('imageUrl')}
               className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm focus:outline-none focus:border-amber-600 cursor-pointer"
               placeholder="Direct link to an image"
             />
@@ -143,11 +126,8 @@ export default function EditCity() {
             Description
           </label>
           <textarea
-            name="description"
-            value={formValues.description}
-            onChange={changeHandler}
             required
-            rows="2"
+            {...register('description')}
             className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm leading-relaxed focus:outline-none focus:border-amber-600 cursor-pointer text-center"
             placeholder="Describe this city..."
           />

@@ -1,29 +1,24 @@
 import { useParams, useNavigate, Link } from "react-router";
 import CreateComment from "./create-comment/CreateComment.jsx";
 import DetailsComment from "./details-comment/DetailsComment.jsx";
-import { useContext, useEffect, useState } from "react";
-import UserContext from "../../contexts/UserContext.js";
-
+import { useEffect, useState } from "react";
+import useRequest from "../../hooks/useRequest.js";
+import { useUserContext } from "../../contexts/UserContext.js";
 
 export default function DetailsCity({
   heightClass = "h-65"
 }) {
-
-  const { onDelete, isAuthenticated } = useContext(UserContext)
-
+  const { user, isAuthenticated } = useUserContext();
   const navigate = useNavigate();
+  const { request } = useRequest();
   const { cityId } = useParams();
+
   const [city, setCity] = useState(null);
+  const [refresh, setRefresh] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:3030/jsonstore/cities/${cityId}`)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error("Unable to load city details");
-        }
-        return response.json();
-      })
+    request(`/data/cities/${cityId}`)
       .then(result => {
         setCity(result)
       })
@@ -33,7 +28,7 @@ export default function DetailsCity({
       .finally(() => {
         setIsLoading(false)
       })
-  }, [cityId])
+  }, [cityId, request])
 
   if (isLoading) {
     return (
@@ -43,17 +38,30 @@ export default function DetailsCity({
     );
   }
 
-  if (!city) {
-    return (
-      <div className="min-h-screen flex items-center justify-center text-red-600">
-        City not found.
-      </div>
-    );
+  const deleteCityHandler = async (city) => {
+
+    const isConfirmed = confirm(`Are you sure you want to delete ${city.name}?`);
+
+    if (!isConfirmed) {
+      return;
+    }
+
+    try {
+      await request(`/data/cities/${cityId}`, 'DELETE')
+
+      navigate(-1)
+    } catch (err) {
+      alert(err.message)
+    }
+  };
+
+  const refreshHandler = () => {
+    setRefresh(state => !state);
   }
 
   return (
     <div
-      className="fixed inset-0 bg-black/50 backdrop-blur-sm flex justify-center items-start pt-10 px-3 pb-6 z-50"
+      className="fixed inset-0 bg-black/50 backdrop-blur-sm flex justify-center items-start pt-5 px-3 pb-5 z-50"
       onClick={() => navigate(-1)}
     >
       <section
@@ -99,7 +107,8 @@ export default function DetailsCity({
             ❤️ {city.likes} travelers like this destination
           </div>
 
-          <div className="flex justify-center gap-3 pt-2">
+          <div
+            className="flex justify-center gap-3">
             <button className="px-4 py-1.5 rounded-full bg-amber-600 text-white text-xs font-semibold hover:bg-amber-500 transition shadow-sm cursor-pointer">
               Like
             </button>
@@ -112,19 +121,29 @@ export default function DetailsCity({
             </Link>
 
             <button
-              onClick={() => onDelete(isAuthenticated, city, cityId, navigate)}
+              onClick={() => deleteCityHandler(city)}
               className="px-4 py-1.5 rounded-full bg-red-700 text-white text-xs font-semibold hover:bg-red-600 transition shadow-sm cursor-pointer">
               Delete
             </button>
           </div>
 
+
           {/* COMMENTS */}
           <div className="pt-2 border-t border-amber-900/20">
             <h2 className="text-sm font-semibold text-slate-900 mb-1">Comments</h2>
-            <DetailsComment cityId={cityId} />
-            <CreateComment cityId={cityId} />
-          </div>
 
+            <div className="max-h-[300px] overflow-y-auto flex flex-col gap-2">
+              <DetailsComment cityId={cityId} refresh={refresh} />
+            </div>
+
+            {isAuthenticated && (
+              <CreateComment
+                user={user}
+                cityId={cityId}
+                onCreate={refreshHandler}
+              />
+            )}
+          </div>
         </div>
       </section>
     </div>
