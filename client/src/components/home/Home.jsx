@@ -9,23 +9,56 @@ export default function Home() {
     const { request } = useRequest();
 
     useEffect(() => {
-        request('/data/cities?sortBy=likes%20desc&pageSize=3')
-            .then(result => {
-                setCities(result)
-            })
-            .catch(err => {
-                alert(err.message)
-            })
-            .finally(() => {
-                setIsLoading(false)
-            })
-    }, [request])
+        Promise.all([
+            request("/data/cities"),
+            request("/data/likes"),
+        ])
+            .then(([citiesRes, likesRes]) => {
+                
+                const likes = Array.isArray(likesRes) ? likesRes : [];
 
+                // Add likes + last like timestamp to each city
+                const citiesWithStats = citiesRes.map(city => {
+                    const cityLikes = likes.filter(l => l.cityId === city._id);
+
+                    const likeCount = cityLikes.length;
+
+                    // get MOST RECENT like timestamp
+                    let lastLikeTime = 0;
+                    if (cityLikes.length > 0) {
+                        lastLikeTime = Math.max(
+                            ...cityLikes.map(l => l._createdOn)
+                        );
+                    }
+
+                    return {
+                        ...city,
+                        likes: likeCount,
+                        lastLikeTime,
+                    };
+                });
+
+                // SORT:
+                // 1) by likes DESC
+                // 2) if equal, by lastLikeTime DESC
+                citiesWithStats.sort((a, b) => {
+                    if (b.likes !== a.likes) {
+                        return b.likes - a.likes;
+                    }
+                    return b.lastLikeTime - a.lastLikeTime;
+                });
+
+                // take TOP 3
+                setCities(citiesWithStats.slice(0, 3));
+            })
+            .catch(err => alert(err.message))
+            .finally(() => setIsLoading(false));
+    }, [request]);
 
     return (
         <div className="min-h-screen flex flex-col lg:flex-row items-start justify-center gap-10 px-4 pt-35 pb-10 ml-[-40px]">
 
-            {/* LEFT SIDE – WELCOME TEXT */}
+            {/* LEFT SIDE */}
             <div className="hidden lg:flex flex-col items-start mt-26 ">
                 <h2 className="text-5xl font-['Playfair_Display'] text-white drop-shadow-xl leading-tight">
                     Welcome to<br />The Travel Guide
@@ -36,7 +69,7 @@ export default function Home() {
                 </p>
             </div>
 
-            {/* RIGHT SIDE – MAIN CONTAINER */}
+            {/* RIGHT SIDE */}
             <section className="
                 w-full max-w-4xl 
                 rounded-3xl 
@@ -45,7 +78,6 @@ export default function Home() {
                 shadow-[0_0_60px_rgba(0,0,0,0.18)] 
                 px-10 py-10
             ">
-                {/* Header */}
                 <div className="mb-5 text-center">
                     <p className="text-xs uppercase tracking-[0.25em] text-amber-700">
                         Created by The Travel Guide
@@ -58,20 +90,20 @@ export default function Home() {
                     </p>
                 </div>
 
-                {/* Cards */}
-                {isLoading ?
+                {/* CARDS */}
+                {isLoading ? (
                     <Spinner />
-                    : (
-                        <div className="grid gap-7 md:grid-cols-3">
-                            {cities.map(city => (
-                                <CityCard
-                                    key={city._id}
-                                    {...city}
-                                    heightClass="h-80"
-                                />
-                            ))}
-                        </div>
-                    )}
+                ) : (
+                    <div className="grid gap-7 md:grid-cols-3">
+                        {cities.map(city => (
+                            <CityCard
+                                key={city._id}
+                                {...city}
+                                heightClass="h-80"
+                            />
+                        ))}
+                    </div>
+                )}
 
                 {!isLoading && cities.length === 0 && (
                     <div className="col-span-full flex flex-col items-center justify-center py-20 text-center">
@@ -81,10 +113,9 @@ export default function Home() {
                         <p className="text-lg text-amber-700 mb-2">
                             It looks like we don't have any cities to show right now.
                         </p>
-                    </div>)}
-
+                    </div>
+                )}
             </section>
-
         </div>
     );
 }
