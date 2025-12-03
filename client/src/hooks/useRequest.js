@@ -1,8 +1,7 @@
-
 import { useCallback } from "react";
 import { useUserContext } from "../contexts/UserContext.js";
 
-const baseurl = 'http://localhost:3030'
+const baseurl = 'http://localhost:3030';
 
 export default function useRequest() {
     const { user, isAuthenticated } = useUserContext();
@@ -12,7 +11,7 @@ export default function useRequest() {
 
         if (method) options.method = method;
 
-        if (data!== undefined) {
+        if (data !== undefined) {
             options.headers = {
                 'content-type': 'application/json'
             };
@@ -29,8 +28,20 @@ export default function useRequest() {
         const response = await fetch(`${baseurl}${url}`, options);
 
         if (!response.ok) {
-          alert("❌ Unable to complete request.");
+            let errorData;
+            try {
+                errorData = await response.json();
+            } catch {
+                errorData = { message: "Request failed" };
+            }
+
+            // Optional: still show alert
+            alert(`❌ ${errorData.message || "Unable to complete request."}`);
+
+            // Important: THROW, don't return the error object
+            throw new Error(errorData.message || "Request failed");
         }
+
         if (response.status === 204) {
             return {};
         }

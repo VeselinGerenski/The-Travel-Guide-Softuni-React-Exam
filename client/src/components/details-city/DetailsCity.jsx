@@ -2,8 +2,11 @@ import { useParams, useNavigate, Link } from "react-router";
 import CreateComment from "./create-comment/CreateComment.jsx";
 import DetailsComment from "./details-comment/DetailsComment.jsx";
 import { useEffect, useState } from "react";
-import useRequest from "../../hooks/useRequest.js";
+
+import useCityLike from "./city-like/useCityLike.js";
+
 import { useUserContext } from "../../contexts/UserContext.js";
+import useRequest from "../../hooks/useRequest.js";
 
 export default function DetailsCity({
   heightClass = "h-60"
@@ -16,6 +19,8 @@ export default function DetailsCity({
   const [city, setCity] = useState(null);
   const [refresh, setRefresh] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+
+  const { likes, userHasLiked, canLike, toggleLike } = useCityLike(cityId, city?._ownerId);
 
   useEffect(() => {
     request(`/data/cities/${cityId}`)
@@ -99,19 +104,24 @@ export default function DetailsCity({
           </p>
 
           <div className="text-center text-amber-800 font-semibold text-xs">
-            ❤️ {city.likes} travelers like this destination
+            ❤️ {likes} travelers like this destination
           </div>
 
           <div
             className="flex justify-center gap-3">
-            <button className="px-4 py-1.5 rounded-full bg-amber-600 text-white text-xs font-semibold hover:bg-amber-500 transition shadow-sm cursor-pointer">
-              Like
-            </button>
+           
+            {canLike && (
+              <button
+                className="px-4 py-1.5 rounded-full bg-amber-600 text-white text-xs font-semibold hover:bg-amber-500 transition shadow-sm cursor-pointer"
+                onClick={toggleLike}
+              >
+                {userHasLiked ? "Unlike" : "Like"}
+              </button>
+            )}
 
             <Link
               to={`/edit/${cityId}`}
-              className="px-4 py-1.5 rounded-full bg-slate-800 text-white text-xs font-semibold hover:bg-slate-700 transition shadow-sm"
-            >
+              className="px-4 py-1.5 rounded-full bg-slate-800 text-white text-xs font-semibold hover:bg-slate-700 transition shadow-sm">
               Edit
             </Link>
 
@@ -128,7 +138,7 @@ export default function DetailsCity({
             <h2 className="text-sm font-semibold text-slate-900 mb-1">Comments</h2>
 
             <div className="max-h-[300px] overflow-y-auto flex flex-col gap-2">
-              <DetailsComment cityId={cityId} refresh={refresh} refreshHandler={refreshHandler}/>
+              <DetailsComment cityId={cityId} refresh={refresh} refreshHandler={refreshHandler} />
             </div>
 
             {isAuthenticated && (
