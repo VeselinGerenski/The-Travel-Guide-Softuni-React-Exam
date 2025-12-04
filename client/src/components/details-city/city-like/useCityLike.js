@@ -2,14 +2,12 @@ import { useEffect, useState, useCallback } from "react";
 import { useUserContext } from "../../../contexts/UserContext.js";
 import useRequest from "../../../hooks/useRequest.js";
 
-export default function useCityLike(cityId, ownerId) {
+export default function useCityLike(cityId,) {
     const { request } = useRequest();
     const { user, isAuthenticated } = useUserContext();
 
     const [likes, setLikes] = useState(0);
     const [userLikeId, setUserLikeId] = useState(null);
-
-    const canLike = isAuthenticated && user?._id !== ownerId;
 
     // load likes + user like on mount / change
     useEffect(() => {
@@ -67,7 +65,6 @@ export default function useCityLike(cityId, ownerId) {
     return {
         likes,
         userHasLiked: !!userLikeId,
-        canLike,
         toggleLike,
     };
 }

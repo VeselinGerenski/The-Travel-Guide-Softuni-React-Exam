@@ -7,6 +7,7 @@ import useCityLike from "./city-like/useCityLike.js";
 
 import { useUserContext } from "../../contexts/UserContext.js";
 import useRequest from "../../hooks/useRequest.js";
+import Spinner from "../spinner/Spinner.jsx";
 
 export default function DetailsCity({
   heightClass = "h-60"
@@ -20,7 +21,7 @@ export default function DetailsCity({
   const [refresh, setRefresh] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  const { likes, userHasLiked, canLike, toggleLike } = useCityLike(cityId, city?._ownerId);
+  const { likes, userHasLiked, toggleLike } = useCityLike(cityId, city?._ownerId);
 
   useEffect(() => {
     request(`/data/cities/${cityId}`)
@@ -39,7 +40,9 @@ export default function DetailsCity({
     return (
       <div className="min-h-screen flex items-center justify-center text-slate-700">
         Loading city details...
+        <Spinner />
       </div>
+
     );
   }
 
@@ -68,6 +71,7 @@ export default function DetailsCity({
         className="w-full max-w-2xl rounded-2xl bg-[#f3ebdd]/95 border border-amber-900/20 shadow-[0_18px_45px_rgba(0,0,0,0.35)] overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
+
         {/* IMAGE */}
         <div className="relative">
           <img
@@ -95,7 +99,7 @@ export default function DetailsCity({
             </h1>
 
             <p className="mt-0.5 text-xs text-slate-700 italic">
-              Population: {city.population.toLocaleString()} people
+              Population: {Number(city.population.toLocaleString())} people
             </p>
           </div>
 
@@ -103,14 +107,15 @@ export default function DetailsCity({
             {city.description}
           </p>
 
+
           <div className="text-center text-amber-800 font-semibold text-xs">
-            ❤️ {likes} travelers like this destination
+            ❤️ {likes === 1 ? `${likes} traveler likes this destination` : `${likes} travelers like this destination`}
           </div>
 
           <div
             className="flex justify-center gap-3">
-           
-            {canLike && (
+
+            {(
               <button
                 className="px-4 py-1.5 rounded-full bg-amber-600 text-white text-xs font-semibold hover:bg-amber-500 transition shadow-sm cursor-pointer"
                 onClick={toggleLike}
@@ -119,17 +124,19 @@ export default function DetailsCity({
               </button>
             )}
 
-            <Link
-              to={`/edit/${cityId}`}
-              className="px-4 py-1.5 rounded-full bg-slate-800 text-white text-xs font-semibold hover:bg-slate-700 transition shadow-sm">
-              Edit
-            </Link>
+            <>
+              <Link
+                to={`/edit/${cityId}`}
+                className="px-4 py-1.5 rounded-full bg-slate-800 text-white text-xs font-semibold hover:bg-slate-700 transition shadow-sm">
+                Edit
+              </Link>
 
-            <button
-              onClick={() => deleteCityHandler(city)}
-              className="px-4 py-1.5 rounded-full bg-red-700 text-white text-xs font-semibold hover:bg-red-800 transition shadow-sm cursor-pointer">
-              Delete
-            </button>
+              <button
+                onClick={() => deleteCityHandler(city)}
+                className="px-4 py-1.5 rounded-full bg-red-700 text-white text-xs font-semibold hover:bg-red-800 transition shadow-sm cursor-pointer">
+                Delete
+              </button>
+            </>
           </div>
 
 

@@ -4,7 +4,7 @@ import { useUserContext } from "../../contexts/UserContext.js";
 
 export default function Header() {
     const { pathname } = useLocation();
-    const isCatalogPage = pathname === "/catalog";
+    const hideNav = pathname === "/catalog" || pathname === "/profile";
 
     const { isAuthenticated, user } = useUserContext()
 
@@ -28,12 +28,9 @@ export default function Header() {
                 {/* Navigation - Center */}
                 <div className="absolute left-[50%] -translate-x-1/2">
 
-                    {!isCatalogPage && (
+                    {!hideNav && (
                         <ul className="hidden lg:flex gap-16 text-2xl font-semibold tracking-wide">
-                            <li>
-                                <Link to="/" className="ink-link inline-block text-3xl hover-scale">Home</Link>
-                            </li>
-                            
+
                             <li>
                                 <Link to="/catalog" className="ink-link inline-block text-3xl hover-scale">Catalog</Link>
                             </li>
@@ -67,14 +64,35 @@ export default function Header() {
                 </div>
 
                 {/* Right - Login/Email */}
-                <div className="hidden lg:block text-3xl font-semibold tracking-wide ml-6">
-                    {isAuthenticated && (
-                        <div>
-                            <p className="ink-link inline-block text-m flex items-center gap-2 hover-scale cursor-pointer">{user.email}</p>
-                        </div>)
-                    }
-
-                </div>
+                {/* Right side username */}
+                {/* Right - Username / Profile */}
+                {/* Right - Username / Profile */}
+                {isAuthenticated && (
+                    <div className="hidden lg:flex items-center justify-end ml-6">
+                        <Link
+                            to="/profile"
+                            className="group flex items-center gap-3 cursor-pointer"
+                        >
+                            <div
+                                className="
+          h-12 w-12 rounded-full
+          bg-white/20 
+          backdrop-blur-sm
+          flex items-center justify-center
+          border border-white/40
+          shadow-[0_0_12px_rgba(255,255,255,0.25)]
+          group-hover:border-amber-400
+          group-hover:shadow-[0_0_18px_rgba(245,158,11,0.55)]
+          transition-all duration-200
+        "
+                            >
+                                <span className="text-lg font-semibold uppercase text-white/90 tracking-wide">
+                                    {user?.username?.[0] || "U"}
+                                </span>
+                            </div>
+                        </Link>
+                    </div>
+                )}
 
             </nav>
         </header>
