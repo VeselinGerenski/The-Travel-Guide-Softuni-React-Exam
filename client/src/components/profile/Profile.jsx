@@ -67,7 +67,7 @@ export default function Profile() {
         .slice(0, 5);
 
     return (
-        <div className="min-h-screen flex justify-center px-4 pt-5 pb-10">
+        <div className="min-h-screen flex justify-center px-4 pt-5 pb-6">
             {/* MAIN CARD – same style as Catalog */}
             <section className="relative w-full max-w-5xl rounded-3xl bg-[#ebe6d9]/85 border border-white/40 px-10 py-10 shadow-[0_0_60px_rgba(0,0,0,0.18)]">
 
@@ -158,16 +158,19 @@ export default function Profile() {
                             {/* Liked Cities */}
                             <div className="md:col-span-2">
                                 {/* Heading row */}
-                                <div className="flex items-center justify-between mb-3">
+                               <div className="flex items-center justify-start gap-55 mb-3">
                                     <h2 className="text-base font-semibold text-slate-900">
                                         ❤️ Cities you liked
                                     </h2>
 
                                     <Link
                                         to="/catalog"
-                                        className="text-xs sm:text-sm font-medium text-amber-700 underline underline-offset-2 hover:text-amber-900 transition"
+                                        className="text-xs sm:text-sm font-medium text-amber-700 hover:text-amber-900 transition flex items-center gap-1"
                                     >
-                                        All Destinations →
+                                        <span>✈️</span>
+                                        <span className="underline underline-offset-2">
+                                            All Destinations →
+                                        </span>
                                     </Link>
                                 </div>
 

@@ -13,7 +13,7 @@ export default function Header() {
         <header className="absolute inset-x-0 top-0 z-50 text-white bg-gradient-to-b from-black/60 via-black/10 to-transparent">
 
             {/* Full width nav bar */}
-           <nav className="w-full h-25 flex items-center justify-between px-10 font-['Playfair_Display']">
+            <nav className="w-full h-25 flex items-center justify-between px-10 font-['Playfair_Display']">
 
                 {/* Left – Logo */}
                 <Link to="/" className="flex items-center group">
@@ -80,11 +80,11 @@ export default function Header() {
           shadow-[0_0_12px_rgba(255,255,255,0.25)]
           group-hover:border-amber-400
           group-hover:shadow-[0_0_18px_rgba(245,158,11,0.55)]
-          transition-all duration-200
+          transition-all duration-200  hover-scale
         "
                             >
-                                <span className="text-lg font-semibold uppercase text-white/90 tracking-wide">
-                                    {user?.fullName?.[0] || "U"}
+                                <span className="text-xl font-semibold uppercase text-white/90 tracking-wide">
+                                    {user?.fullName?.[0] || "P"}
                                 </span>
                             </div>
                         </Link>

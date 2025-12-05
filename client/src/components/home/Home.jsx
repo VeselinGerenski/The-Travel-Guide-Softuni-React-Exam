@@ -68,14 +68,7 @@ export default function Home() {
             </div>
 
             {/* RIGHT SIDE */}
-            <section className="
-                w-full max-w-4xl 
-                rounded-3xl 
-                bg-[#ebe6d9]/85 
-                border border-white/40 
-                shadow-[0_0_60px_rgba(0,0,0,0.18)] 
-                px-10 py-10
-            ">
+            <section className="w-full max-w-4xl rounded-3xl bg-[#ebe6d9]/85 border border-white/40 shadow-[0_0_60px_rgba(0,0,0,0.18)] px-10 py-10">
                 <div className="mb-5 text-center">
                     <p className="text-xs uppercase tracking-[0.25em] text-amber-700">
                         Created by The Travel Guide
