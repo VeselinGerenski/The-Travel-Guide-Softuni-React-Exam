@@ -1,20 +1,30 @@
 import { Link, useNavigate } from "react-router";
 import useForm from "../../hooks/useForm.js";
 import { useUserContext } from "../../contexts/UserContext.js";
+import useValidation from "../../hooks/useValidation.js";
+import { validateLogin } from "../../utils/validators.js";
 
 export default function Login() {
   const navigate = useNavigate();
-  const { loginHandler } = useUserContext()
+  const { loginHandler } = useUserContext();
+  const { errors, validate } = useValidation(validateLogin)
 
-  const submitHandler = async ({ email, password }) => {
+  const submitHandler = async (values) => {
+    const { email, password } = values;
+
+    const clientErrors = validate(values)
+
+    if (Object.keys(clientErrors).length > 0) {
+      return;
+    }
 
     try {
 
-     loginHandler(email, password);
+     await loginHandler(email, password);
 
       navigate('/');
     } catch (err) {
-      alert(err.message);
+      validate(values, err);
     }
 
   }
@@ -58,6 +68,11 @@ export default function Login() {
             {...register('email')}
             className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm text-slate-800 focus:outline-none focus:border-amber-600 placeholder:text--slate-400 cursor-pointer"
           />
+          {errors.email && (
+            <p className="text-[11px] text-red-600 mt-1">
+              {errors.email}
+            </p>
+          )}
         </div>
 
         {/* Password */}
@@ -72,6 +87,11 @@ export default function Login() {
             {...register('password')}
             className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm text-slate-800 focus:outline-none focus:border-amber-600 placeholder:text--slate-400 cursor-pointer"
           />
+          {errors.password && (
+            <p className="text-[11px] text-red-600 mt-1">
+              {errors.password}
+            </p>
+          )}
         </div>
 
         {/* Button */}
