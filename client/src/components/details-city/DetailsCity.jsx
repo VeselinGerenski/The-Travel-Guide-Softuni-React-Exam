@@ -10,7 +10,7 @@ import useRequest from "../../hooks/useRequest.js";
 import Spinner from "../spinner/Spinner.jsx";
 
 export default function DetailsCity({
-  heightClass = "h-60"
+  heightClass = "h-56"
 }) {
   const { user, isAuthenticated } = useUserContext();
   const navigate = useNavigate();
@@ -39,10 +39,8 @@ export default function DetailsCity({
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center text-slate-700">
-        Loading city details...
         <Spinner />
       </div>
-
     );
   }
 
@@ -64,11 +62,18 @@ export default function DetailsCity({
 
   return (
     <div
-      className="fixed inset-0 bg-black/50 backdrop-blur-sm flex justify-center items-start pt-5 px-3 pb-5 z-50"
+      className="fixed inset-0 bg-black/50 backdrop-blur-sm flex justify-center items-center px-3 py-5 z-50"
       onClick={() => navigate(-1)}
     >
       <section
-        className="w-full max-w-2xl rounded-2xl bg-[#f3ebdd]/95 border border-amber-900/20 shadow-[0_18px_45px_rgba(0,0,0,0.35)] overflow-hidden"
+        className="
+    w-full max-w-2xl
+    rounded-3xl                
+    bg-[#f3ebdd]/95 
+    border border-amber-900/20 
+    shadow-[0_18px_45px_rgba(0,0,0,0.35)]
+    overflow-hidden            /* important: clips the image to the radius */
+  "
         onClick={(e) => e.stopPropagation()}
       >
 
@@ -77,7 +82,7 @@ export default function DetailsCity({
           <img
             src={city.imageUrl}
             alt={city.name}
-            className={`${heightClass} w-full object-cover rounded-t-2xl`}
+            className={`${heightClass} w-full object-cover`}
           />
           <button
             onClick={() => navigate(-1)}
@@ -99,7 +104,7 @@ export default function DetailsCity({
             </h1>
 
             <p className="mt-0.5 text-xs text-slate-700 italic">
-              Population: {Number(city.population.toLocaleString())} people
+              Population: {city.population.toLocaleString()} people
             </p>
           </div>
 

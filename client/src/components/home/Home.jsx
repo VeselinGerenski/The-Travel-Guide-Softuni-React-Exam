@@ -19,7 +19,7 @@ export default function Home() {
 
                 // Add likes + last like timestamp to each city
                 const citiesWithStats = citiesRes.map(city => {
-                    const cityLikes = likes.filter(l => l.cityId === city._id);
+                    const cityLikes = likes.filter(like => like.cityId === city._id);
 
                     const likeCount = cityLikes.length;
 
@@ -27,10 +27,9 @@ export default function Home() {
                     let lastLikeTime = 0;
                     if (cityLikes.length > 0) {
                         lastLikeTime = Math.max(
-                            ...cityLikes.map(l => l._createdOn)
+                            ...cityLikes.map(like => like._createdOn)
                         );
                     }
-
                     return {
                         ...city,
                         likes: likeCount,
@@ -48,7 +47,6 @@ export default function Home() {
                     return b.lastLikeTime - a.lastLikeTime;
                 });
 
-                // take TOP 3
                 setCities(citiesWithStats.slice(0, 3));
             })
             .catch(err => alert(err.message))

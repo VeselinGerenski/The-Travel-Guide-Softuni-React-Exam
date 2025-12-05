@@ -7,13 +7,13 @@ export default function UserProvider({ children }) {
     const [user, setUser] = useLocalStorage(null, 'user');
     const { request } = useRequest(user);
 
-    const registerHandler = async (email, password) => {
-        const newUser = { email, password };
+    const registerHandler = async (fullName, email, password) => {
+        const newUser = { fullName, email, password };
         const result = await request('/users/register', 'POST', newUser);
         setUser(result);
     };
 
-    const loginHandler = async (email, password) => {
+    const loginHandler = async ( email, password) => {
         const result = await request('/users/login', 'POST', { email, password });
         setUser(result);
     };

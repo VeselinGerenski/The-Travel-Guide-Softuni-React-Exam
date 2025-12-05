@@ -62,8 +62,9 @@ export default function Profile() {
     const likedCities = cities.filter(c => likedCityIds.includes(c._id));
 
     // Recent comments (sort by createdOn desc)
-    const recentComments = [...comments].sort((a, b) => b._createdOn - a._createdOn).slice(0, 5);
-
+    const recentComments = [...comments]
+        .sort((a, b) => b._createdOn - a._createdOn)
+        .slice(0, 5);
 
     return (
         <div className="min-h-screen flex justify-center px-4 pt-5 pb-10">
@@ -100,17 +101,17 @@ export default function Profile() {
                         <div className="flex flex-col md:flex-row items-center md:items-start gap-6 mb-8">
                             {/* Avatar placeholder */}
                             <div className="w-20 h-20 rounded-full bg-amber-700/80 text-white flex items-center justify-center text-2xl font-semibold shadow-md">
-                                {user.username?.[0]?.toUpperCase()}
+                                {user.fullName?.[0]?.toUpperCase()}
                             </div>
 
                             <div className="text-center md:text-left">
-                                <p className="text-[10px] uppercase tracking-[0.25em] text-amber-700">
+                                <p className="text-[12px] uppercase tracking-[0.25em] text-amber-700">
                                     Traveler Profile
                                 </p>
                                 <h1 className="mt-1 text-2xl md:text-3xl font-semibold text-slate-900 font-['Playfair_Display']">
-                                    {user.username}
+                                    {user.fullName}
                                 </h1>
-                                <h2 className="mt-1 text-1xl  font-semibold text-slate-900 font-['Playfair_Display']">
+                                <h2 className="mt-1 text-1xl font-semibold text-slate-900 font-['Playfair_Display']">
                                     email: {user.email}
                                 </h2>
                             </div>
@@ -119,20 +120,36 @@ export default function Profile() {
                         {/* STATS */}
                         <div className="grid gap-4 md:grid-cols-4 mb-8">
                             <div className="rounded-2xl bg-white/70 border border-amber-900/10 px-4 py-3 text-center shadow-sm">
-                                <p className="text-[10px] uppercase tracking-[0.15em] text-amber-700">Likes Given</p>
-                                <p className="mt-1 text-xl font-semibold text-slate-900">{likesGiven.length}</p>
+                                <p className="text-[10px] uppercase tracking-[0.15em] text-amber-700">
+                                    Likes Given
+                                </p>
+                                <p className="mt-1 text-xl font-semibold text-slate-900">
+                                    {likesGiven.length}
+                                </p>
                             </div>
                             <div className="rounded-2xl bg-white/70 border border-amber-900/10 px-4 py-3 text-center shadow-sm">
-                                <p className="text-[10px] uppercase tracking-[0.15em] text-amber-700">Likes Received</p>
-                                <p className="mt-1 text-xl font-semibold text-slate-900">{likesReceived.length}</p>
+                                <p className="text-[10px] uppercase tracking-[0.15em] text-amber-700">
+                                    Likes Received
+                                </p>
+                                <p className="mt-1 text-xl font-semibold text-slate-900">
+                                    {likesReceived.length}
+                                </p>
                             </div>
                             <div className="rounded-2xl bg-white/70 border border-amber-900/10 px-4 py-3 text-center shadow-sm">
-                                <p className="text-[10px] uppercase tracking-[0.15em] text-amber-700">Comments</p>
-                                <p className="mt-1 text-xl font-semibold text-slate-900">{comments.length}</p>
+                                <p className="text-[10px] uppercase tracking-[0.15em] text-amber-700">
+                                    Comments
+                                </p>
+                                <p className="mt-1 text-xl font-semibold text-slate-900">
+                                    {comments.length}
+                                </p>
                             </div>
                             <div className="rounded-2xl bg-white/70 border border-amber-900/10 px-4 py-3 text-center shadow-sm">
-                                <p className="text-[10px] uppercase tracking-[0.15em] text-amber-700">Cities Created</p>
-                                <p className="mt-1 text-xl font-semibold text-slate-900">{myCities.length}</p>
+                                <p className="text-[10px] uppercase tracking-[0.15em] text-amber-700">
+                                    Cities Created
+                                </p>
+                                <p className="mt-1 text-xl font-semibold text-slate-900">
+                                    {myCities.length}
+                                </p>
                             </div>
                         </div>
 
@@ -140,16 +157,17 @@ export default function Profile() {
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                             {/* Liked Cities */}
                             <div className="md:col-span-2">
-                                <div className="grid grid-cols-1 sm:grid-cols-2 mb-3">
-                                    <h2 className="text-sm font-semibold text-slate-900">
-                                        ❤️ Cities you like
+                                {/* Heading row */}
+                                <div className="flex items-center justify-between mb-3">
+                                    <h2 className="text-base font-semibold text-slate-900">
+                                        ❤️ Cities you liked
                                     </h2>
 
                                     <Link
                                         to="/catalog"
-                                        className="text-xs sm:text-sm font-medium text-slate-900 underline underline-offset-2 hover:text-slate-500 transitionsm:justify-self-start sm:ml-3"
+                                        className="text-xs sm:text-sm font-medium text-amber-700 underline underline-offset-2 hover:text-amber-900 transition"
                                     >
-                                        All Destinations
+                                        All Destinations →
                                     </Link>
                                 </div>
 
@@ -158,20 +176,27 @@ export default function Profile() {
                                         You haven’t liked any cities yet. Start exploring!
                                     </p>
                                 ) : (
-                                    <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
-                                        {likedCities.map(city => (
-                                            <CityCard {...city}
-                                                key={city._id}
-                                                heightClass="h-40"
-                                            />
-                                        ))}
+                                    <div className="overflow-x-auto pb-2">
+                                        <div className="flex gap-4 snap-x snap-mandatory">
+                                            {likedCities.map(city => (
+                                                <div
+                                                    key={city._id}
+                                                    className="snap-start shrink-0 w-[70%] sm:w-[48%]"
+                                                >
+                                                    <CityCard
+                                                        {...city}
+                                                        heightClass="h-75"   // vertical big version
+                                                    />
+                                                </div>
+                                            ))}
+                                        </div>
                                     </div>
                                 )}
                             </div>
 
                             {/* Recent Comments */}
                             <div>
-                                <h2 className="text-sm font-semibold text-slate-900 mb-3">
+                                <h2 className="text-base font-semibold text-slate-900 mb-3">
                                     💬 Your recent comments
                                 </h2>
 
@@ -187,7 +212,7 @@ export default function Profile() {
                                             return (
                                                 <div
                                                     key={comment._id}
-                                                    className="rounded-xl bg-white/80 border border-amber-900/10 px-3 py-2.5 shadow-sm text-xs break-words"
+                                                    className="font-bold rounded-xl bg-white/80 border border-amber-900/10 px-3 py-2.5 shadow-sm text-xs break-words"
                                                 >
                                                     <p className="text-slate-800 mb-1">
                                                         {comment.message || comment.comment || "(no text)"}
@@ -197,7 +222,7 @@ export default function Profile() {
                                                             {city ? (
                                                                 <Link
                                                                     to={`/details/${city._id}`}
-                                                                    className="hover:underline"
+                                                                    className="hover:underline hover:text-amber-900"
                                                                 >
                                                                     On {city.name}
                                                                 </Link>

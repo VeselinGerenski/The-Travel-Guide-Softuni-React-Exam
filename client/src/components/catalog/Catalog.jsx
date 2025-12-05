@@ -13,8 +13,6 @@ export default function Catalog() {
 
   const { request } = useRequest();
 
-  const pageSize = 6; // 👈 6 cities per page
-
   useEffect(() => {
     request("/data/cities")
       .then(result => {
@@ -27,6 +25,8 @@ export default function Catalog() {
         setIsLoading(false);
       });
   }, [request]);
+
+  const pageSize = 6;
 
   // total pages
   const totalPages = Math.ceil(cities.length / pageSize);
@@ -92,7 +92,7 @@ export default function Catalog() {
                 <CityCard
                   key={city._id}
                   {...city}
-                  heightClass="h-60"
+                  heightClass="h-58"
                 />
               ))}
             </div>
@@ -115,12 +115,7 @@ export default function Catalog() {
                 <button
                   onClick={handlePrev}
                   disabled={currentPage === 1}
-                  className="
-                    px-4 py-1.5 rounded-full text-xs font-semibold 
-                    border border-amber-700 text-amber-700 
-                    disabled:opacity-40 disabled:cursor-not-allowed
-                    hover:bg-amber-700 hover:text-white transition
-                  "
+                  className="px-4 py-1.5 rounded-full text-xs font-semibold border border-amber-700 text-amber-700 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-amber-700 hover:text-white transition"
                 >
                   Previous
                 </button>
@@ -132,12 +127,7 @@ export default function Catalog() {
                 <button
                   onClick={handleNext}
                   disabled={currentPage === totalPages || totalPages === 0}
-                  className="
-                    px-4 py-1.5 rounded-full text-xs font-semibold 
-                    border border-amber-700 text-amber-700 
-                    disabled:opacity-40 disabled:cursor-not-allowed
-                    hover:bg-amber-700 hover:text-white transition
-                  "
+                  className="px-4 py-1.5 rounded-full text-xs font-semibold border border-amber-700 text-amber-700 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-amber-700 hover:text-white transition"
                 >
                   Next
                 </button>

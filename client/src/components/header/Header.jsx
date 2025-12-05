@@ -13,15 +13,14 @@ export default function Header() {
         <header className="absolute inset-x-0 top-0 z-50 text-white bg-gradient-to-b from-black/60 via-black/10 to-transparent">
 
             {/* Full width nav bar */}
-            <nav className="w-full flex items-center justify-between px-10 py-3 -mt-5 font-['Playfair_Display']">
+           <nav className="w-full h-25 flex items-center justify-between px-10 font-['Playfair_Display']">
 
                 {/* Left – Logo */}
-                <Link
-                    to="/" className="flex items-center group">
+                <Link to="/" className="flex items-center group">
                     <img
                         src="/images/logo.png"
                         alt="logo"
-                        className="w-30 h-auto drop-shadow-xl ink-link hover-scale group-hover:drop-shadow-[0_0_25px_rgba(217,119,6,0.55)]"
+                        className="h-30 w-auto translate-y-[15px] drop-shadow-xl ink-link hover-scale group-hover:drop-shadow-[0_0_25px_rgba(217,119,6,0.55)]"
                     />
                 </Link>
 
@@ -63,9 +62,7 @@ export default function Header() {
                     )}
                 </div>
 
-                {/* Right - Login/Email */}
-                {/* Right side username */}
-                {/* Right - Username / Profile */}
+
                 {/* Right - Username / Profile */}
                 {isAuthenticated && (
                     <div className="hidden lg:flex items-center justify-end ml-6">
@@ -75,7 +72,7 @@ export default function Header() {
                         >
                             <div
                                 className="
-          h-12 w-12 rounded-full
+          h-13 w-13 rounded-full
           bg-white/20 
           backdrop-blur-sm
           flex items-center justify-center
@@ -87,7 +84,7 @@ export default function Header() {
         "
                             >
                                 <span className="text-lg font-semibold uppercase text-white/90 tracking-wide">
-                                    {user?.username?.[0] || "U"}
+                                    {user?.fullName?.[0] || "U"}
                                 </span>
                             </div>
                         </Link>

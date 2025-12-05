@@ -10,7 +10,7 @@ export default function Login() {
 
     try {
 
-      loginHandler(email, password);
+     loginHandler(email, password);
 
       navigate('/');
     } catch (err) {

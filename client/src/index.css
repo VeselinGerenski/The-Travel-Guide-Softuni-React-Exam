@@ -1,38 +1,51 @@
 @import "tailwindcss";
 
+/* Make sure the app can stretch to full height */
+html,
+body,
+#root {
+  height: 100%;
+}
 
-/* home background */
+/* Base body styles */
+body {
+  margin: 0;
+  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: #000; /* fallback so no grey shows behind backgrounds */
+}
+
+/* ---------- BACKGROUNDS ---------- */
+
+/* Home background */
 .home-bg {
   min-height: 100vh;
-  background-image: url('/images/background.jpg');
+  background-image: url("/images/background.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: top center;
 }
 
-/* default background*/
+/* Default background (catalog, profile, etc.) */
 .default-bg {
   min-height: 100vh;
-  background-image: url('/images/homeBackground.jpg');
-  background-size: 100%;
+  background-image: url("/images/homeBackground.jpg");
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
 }
+
+/* ---------- HOVER SCALE (logo, etc.) ---------- */
 
 .hover-scale {
   transition: transform 0.3s ease;
 }
 
 .hover-scale:hover {
-  transform: scale(1.20);
+  transform: scale(1.2);
 }
 
-body {
-  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-}
+/* ---------- NAV "INK" LINK EFFECT ---------- */
 
-
-/* --- Vintage Ink Spread for Nav Links --- */
 .ink-link {
   position: relative;
   transition: color 0.25s ease;
@@ -45,38 +58,52 @@ body {
   bottom: -2px;
   width: 0%;
   height: 2px;
-  background: rgba(180, 120, 50, 0.55);
-  /* warm vintage amber-brown */
+  background: rgba(180, 120, 50, 0.55); /* warm vintage amber-brown */
   transition: all 0.35s ease;
   transform: translateX(-50%);
   border-radius: 9999px;
-  filter: blur(5px);
-  /* subtle ink bleed */
+  filter: blur(5px); /* subtle ink bleed */
 }
 
 .ink-link:hover {
-  color: #d97706;
-  /* Tailwind amber-600 */
+  color: #d97706; /* Tailwind amber-600 */
 }
 
 .ink-link:hover::after {
   width: 110%;
   height: 3px;
   background: rgba(180, 120, 50, 0.7);
-  filter: blur(2px);
-  /* ink spreads */
+  filter: blur(2px); /* ink spreads */
 }
+
+/* ---------- COMMENT TEXT INLINE FIX ---------- */
 
 .comment-text {
   display: inline;
   margin-left: 0.25rem; /* small gap after username */
 }
 
+/* ---------- SPINNER ANIMATION ---------- */
+
 @keyframes spin-smooth {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .animate-spin-smooth {
   animation: spin-smooth 1.2s linear infinite;
+}
+
+/* Hide scrollbar */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

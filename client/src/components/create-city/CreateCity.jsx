@@ -9,7 +9,6 @@ const initialValues = {
   population: "",
   imageUrl: "",
   description: "",
-  likes: 0,
 }
 
 export default function CreateCity() {
@@ -18,12 +17,12 @@ export default function CreateCity() {
 
   const createCityHandler = async (values) => {
     const data = values;
-    
+
     data.population = Number(data.population);
 
     try {
       await request('/data/cities', 'POST', data)
-
+      
       navigate('/catalog')
     } catch (err) {
       alert(err.message)

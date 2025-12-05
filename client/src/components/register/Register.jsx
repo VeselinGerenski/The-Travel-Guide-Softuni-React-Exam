@@ -1,31 +1,30 @@
-
 import { Link, useNavigate } from "react-router";
 import useForm from "../../hooks/useForm.js";
 import { useUserContext } from "../../contexts/UserContext.js";
-
 
 export default function Register() {
   const { registerHandler } = useUserContext();
   const navigate = useNavigate()
 
   const registerSubmitHandler = async (values) => {
-    const { email, password, repeatPassword } = values;
+    const { fullName, email, password, repeatPassword } = values;
 
     if (password !== repeatPassword) {
-      alert(`Password doesn't match`)
+      alert(`Password doesn't match`);
+      return;
     }
 
     try {
-      registerHandler(email, password);
+     await registerHandler(fullName, email, password);
 
       navigate('/')
     } catch (err) {
       alert(err.message)
     }
-
   }
 
   const { register, formAction } = useForm(registerSubmitHandler, {
+    fullName: '',
     email: '',
     password: '',
     repeatPassword: '',
@@ -53,6 +52,20 @@ export default function Register() {
           <p className="text-xs text-slate-600">
             Fill in this letter to begin your adventures with us.
           </p>
+        </div>
+
+        {/*Username */}
+        <div className="space-y-1">
+          <label className="block text-xs font-semibold tracking-[0.15em] uppercase text-amber-900/90">
+           Fullname
+          </label>
+          <input
+            type="text"
+            placeholder="First and last name"
+            {...register('fullName')}
+            required
+            className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm text-slate-800 focus:outline-none focus:border-amber-600 placeholder:text-slate-400 cursor-pointer"
+          />
         </div>
 
         {/* Email */}
