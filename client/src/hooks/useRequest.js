@@ -27,6 +27,9 @@ export default function useRequest() {
 
         const response = await fetch(`${baseurl}${url}`, options);
 
+        if (response.status === 204) {
+            return {};
+        }
         if (!response.ok) {
             let errorData;
             try {
@@ -35,15 +38,10 @@ export default function useRequest() {
                 errorData = { message: "Request failed" };
             }
 
-            // Optional: still show alert
-            alert(`❌ ${errorData.message || "Unable to complete request."}`);
-
-            // Important: THROW, don't return the error object
-            throw new Error(errorData.message || "Request failed");
-        }
-
-        if (response.status === 204) {
-            return {};
+            const err = new Error(errorData.message || "Request failed");
+            err.status = response.status;
+            err.data = errorData;
+            throw err;
         }
 
         return await response.json();
