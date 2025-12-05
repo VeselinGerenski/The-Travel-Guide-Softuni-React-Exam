@@ -1,38 +1,45 @@
 import { Link, useNavigate } from "react-router";
 import useForm from "../../hooks/useForm.js";
 import { useUserContext } from "../../contexts/UserContext.js";
+import useValidation from "../../hooks/useValidation.js";
+import { validateRegister } from "../../utils/validators.js";
+
 
 export default function Register() {
   const { registerHandler } = useUserContext();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { errors, validate } = useValidation(validateRegister);
 
   const registerSubmitHandler = async (values) => {
-    const { fullName, email, password, repeatPassword } = values;
+    const { fullName, email, password } = values;
 
-    if (password !== repeatPassword) {
-      alert(`Password doesn't match`);
+    const clientErrors = validate(values);
+
+    if (Object.keys(clientErrors).length > 0) {
       return;
     }
 
     try {
-     await registerHandler(fullName, email, password);
+      await registerHandler(fullName, email, password);
 
-      navigate('/')
+      navigate("/");
     } catch (err) {
-      alert(err.message)
+
+      validate(values, err)
     }
-  }
+  };
 
   const { register, formAction } = useForm(registerSubmitHandler, {
-    fullName: '',
-    email: '',
-    password: '',
-    repeatPassword: '',
+    fullName: "",
+    email: "",
+    password: "",
+    repeatPassword: "",
   });
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 pt-20 pb-10">
-      <form action={formAction}
+      <form
+        action={formAction}
         className="w-full max-w-lg rounded-[32px] bg-[#f3ebdd]/75 backdrop-blur-md border border-amber-900/20 shadow-[0_18px_45px_rgba(0,0,0,0.35)] px-10 py-8 space-y-5"
       >
         {/* Letter header */}
@@ -43,9 +50,7 @@ export default function Register() {
 
         {/* Greeting + title */}
         <div className="space-y-1 text-center">
-          <p className="italic text-sm text-slate-700">
-            Dear Future Explorer,
-          </p>
+          <p className="italic text-sm text-slate-700">Dear Future Explorer,</p>
           <h2 className="text-3xl font-semibold text-slate-900 font-['Playfair_Display']">
             Create Your Passport
           </h2>
@@ -54,18 +59,22 @@ export default function Register() {
           </p>
         </div>
 
-        {/*Username */}
+        {/* Full name */}
         <div className="space-y-1">
           <label className="block text-xs font-semibold tracking-[0.15em] uppercase text-amber-900/90">
-           Fullname
+            Fullname
           </label>
           <input
             type="text"
             placeholder="First and last name"
-            {...register('fullName')}
-            required
+            {...register("fullName")}
             className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm text-slate-800 focus:outline-none focus:border-amber-600 placeholder:text-slate-400 cursor-pointer"
           />
+          {errors.fullName && (
+            <p className="text-[11px] text-red-600 mt-1">
+              {errors.fullName}
+            </p>
+          )}
         </div>
 
         {/* Email */}
@@ -76,10 +85,14 @@ export default function Register() {
           <input
             type="email"
             placeholder="you@example.com"
-            {...register('email')}
-            required
+            {...register("email")}
             className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm text-slate-800 focus:outline-none focus:border-amber-600 placeholder:text-slate-400 cursor-pointer"
           />
+          {errors.email && (
+            <p className="text-[11px] text-red-600 mt-1">
+              {errors.email}
+            </p>
+          )}
         </div>
 
         {/* Password */}
@@ -89,12 +102,15 @@ export default function Register() {
           </label>
           <input
             type="password"
-            name="password"
             placeholder="••••••••"
-            {...register('password')}
-            required
+            {...register("password")}
             className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm text-slate-800 focus:outline-none focus:border-amber-600 placeholder:text-slate-400 cursor-pointer"
           />
+          {errors.password && (
+            <p className="text-[11px] text-red-600 mt-1">
+              {errors.password}
+            </p>
+          )}
         </div>
 
         {/* Repeat Password */}
@@ -105,10 +121,14 @@ export default function Register() {
           <input
             type="password"
             placeholder="••••••••"
-            {...register('repeatPassword')}
-            required
+            {...register("repeatPassword")}
             className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm text-slate-800 focus:outline-none focus:border-amber-600 placeholder:text-slate-400 cursor-pointer"
           />
+          {errors.repeatPassword && (
+            <p className="text-[11px] text-red-600 mt-1">
+              {errors.repeatPassword}
+            </p>
+          )}
         </div>
 
         {/* Register button */}
@@ -117,7 +137,7 @@ export default function Register() {
             type="submit"
             className="w-full rounded-full bg-amber-700 py-2.5 text-sm font-semibold text-white shadow-md hover:bg-amber-600 transition cursor-pointer"
           >
-            Register & Sign in
+            Register &amp; Sign in
           </button>
         </div>
 
@@ -133,6 +153,7 @@ export default function Register() {
             </Link>
           </div>
         </div>
+
       </form>
     </div>
   );
