@@ -126,12 +126,12 @@ export default function DetailsCity({
             {city.description}
           </p>
 
+          <div className="text-center text-amber-800 font-semibold text-xs">
+            ❤️ {likes === 1 ? `${likes} traveler likes this destination` : `${likes} travelers like this destination`}
+          </div>
+
           {isAuthenticated && (
             <>
-              <div className="text-center text-amber-800 font-semibold text-xs">
-                ❤️ {likes === 1 ? `${likes} traveler likes this destination` : `${likes} travelers like this destination`}
-              </div>
-
               <div className="flex justify-center gap-3">
 
                 <button
@@ -163,7 +163,7 @@ export default function DetailsCity({
               )}
             </>
           )}
-          
+
           {/* COMMENTS */}
           <div className="pt-2 border-t border-amber-900/20">
             <h2 className="text-sm font-semibold text-slate-900 mb-1">Comments</h2>
