@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export default function useForm(callback,initialValues) {
+export default function useForm(callback, initialValues) {
     const [values, setValues] = useState(initialValues)
 
     const changeHandler = (e) => {
@@ -11,10 +11,13 @@ export default function useForm(callback,initialValues) {
     }
 
     const formAction = async (formData) => {
-        await callback(values, formData)
-    }
-   
-     const register = (fieldName) => {
+        await callback(values, formData,{
+            setValues,
+            reset: () => setValues(initialValues),
+        });
+    };
+
+    const register = (fieldName) => {
         return {
             name: fieldName,
             onChange: changeHandler,

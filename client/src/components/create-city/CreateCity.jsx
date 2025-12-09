@@ -2,34 +2,40 @@
 import { useNavigate } from "react-router";
 import useForm from "../../hooks/useForm.js";
 import useRequest from "../../hooks/useRequest.js";
-
-const initialValues = {
-  name: "",
-  country: "",
-  population: "",
-  imageUrl: "",
-  description: "",
-}
+import useValidation from "../../hooks/useValidation.js";
+import { validateCity } from "../../utils/validators.js";
 
 export default function CreateCity() {
   const navigate = useNavigate();
   const { request } = useRequest();
+  const { errors, validate } = useValidation(validateCity);
 
   const createCityHandler = async (values) => {
-    const data = values;
+    const clientErrors = validate(values)
 
+    if (Object.keys(clientErrors).length > 0) {
+      return;
+    }
+
+    const data = values;
     data.population = Number(data.population);
 
     try {
       await request('/data/cities', 'POST', data)
-      
+
       navigate('/catalog')
     } catch (err) {
-      alert(err.message)
+      alert(err.message || 'Failed to create city')
     }
   }
 
-  const { register, formAction } = useForm(createCityHandler, initialValues);
+  const { register, formAction } = useForm(createCityHandler, {
+    name: "",
+    country: "",
+    population: "",
+    imageUrl: "",
+    description: "",
+  });
 
   return (
     <div className="min-h-screen flex items-center cursor-pointer justify-center cursor-pointer px-4 pt-22 pb-10">
@@ -41,7 +47,6 @@ export default function CreateCity() {
           <span>From: The Travel Guide</span>
           <span>To: City Records Dept.</span>
         </div>
-
         <h1 className="text-4xl text-center cursor-pointer font-['Playfair_Display'] font-semibold text-slate-900">
           Add a New City
         </h1>
@@ -55,11 +60,14 @@ export default function CreateCity() {
             </label>
             <input
               type="text"
-              required
               {...register('name')}
               className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm focus:outline-none focus:border-amber-600 text-center cursor-pointer"
               placeholder="e.g. Tokyo"
             />
+            {errors.name && (
+              <p className="text-[11px] text-red-600 mt-1 text-center">
+                {errors.name}
+              </p>)}
           </div>
 
           {/* Country */}
@@ -69,11 +77,14 @@ export default function CreateCity() {
             </label>
             <input
               type="text"
-              required
               {...register('country')}
               className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm focus:outline-none focus:border-amber-600 text-center cursor-pointer"
               placeholder="e.g. Japan"
             />
+            {errors.country && (
+              <p className="text-[11px] text-red-600 mt-1 text-center">
+                {errors.country}
+              </p>)}
           </div>
         </div>
 
@@ -86,11 +97,14 @@ export default function CreateCity() {
             </label>
             <input
               type="number"
-              required
               {...register('population')}
               className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm focus:outline-none focus:border-amber-600 text-center cursor-pointer"
               placeholder="e.g. 37400000"
             />
+            {errors.population && (
+              <p className="text-[11px] text-red-600 mt-1 text-center">
+                {errors.population}
+              </p>)}
           </div>
 
           {/* Image URL */}
@@ -100,11 +114,14 @@ export default function CreateCity() {
             </label>
             <input
               type="text"
-              required
               {...register('imageUrl')}
               className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm focus:outline-none focus:border-amber-600 text-center cursor-pointer"
               placeholder="Direct link to an image"
             />
+            {errors.imageUrl && (
+              <p className="text-[11px] text-red-600 mt-1 text-center">
+                {errors.imageUrl}
+              </p>)}
           </div>
         </div>
 
@@ -114,12 +131,15 @@ export default function CreateCity() {
             Description
           </label>
           <textarea
-            required
-            rows="2"
+            rows="1"
             {...register('description')}
             className="w-full border-b border-amber-900/40 bg-transparent py-2 text-sm leading-relaxed focus:outline-none focus:border-amber-600 text-center cursor-pointer "
             placeholder="Describe this city..."
           />
+          {errors.description && (
+            <p className="text-[11px] text-red-600 mt-1 text-center">
+              {errors.description}
+            </p>)}
         </div>
 
         {/* Submit */}

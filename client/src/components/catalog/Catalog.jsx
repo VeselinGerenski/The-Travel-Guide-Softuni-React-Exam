@@ -26,7 +26,7 @@ export default function Catalog() {
       });
   }, [request]);
 
-  const pageSize = 6;
+  const pageSize = 4;
 
   // total pages
   const totalPages = Math.ceil(cities.length / pageSize);
@@ -45,9 +45,9 @@ export default function Catalog() {
   };
 
   return (
-    <div className="min-h-screen flex justify-center px-4 pt-5 pb-10">
+    <div className="flex justify-center px-4 pt-2 pb-0">
       {/* section relative so X can sit inside it */}
-      <section className="relative w-full max-w-5xl rounded-3xl bg-[#ebe6d9]/85 border border-white/40 px-10 py-10">
+      <section className="relative w-full max-w-[900px] rounded-3xl bg-[#ebe6d9]/85 border border-white/40 px-10 py-10">
 
         {/* X CLOSE BUTTON */}
         <button
@@ -70,14 +70,14 @@ export default function Catalog() {
         </button>
 
         {/* Header */}
-        <div className="mb-6 text-center">
+        <div className="mb-2 text-center">
           <p className="text-xs uppercase tracking-[0.25em] text-amber-700">
             The Travel Guide
           </p>
           <h1 className="mt-2 text-3xl font-semibold text-slate-900 font-['Playfair_Display']">
             All Destinations
           </h1>
-          <p className="mt-3 text-sm sm:text-base text-slate-600 max-w-xl mx-auto">
+          <p className="mt-2 text-sm sm:text-base text-slate-600 max-w-xl mx-auto">
             Every destination we offer — discover the stories behind each city.
           </p>
         </div>
@@ -87,12 +87,12 @@ export default function Catalog() {
           <Spinner />
         ) : (
           <>
-            <div className="grid gap-6 md:grid-cols-2">
+            <div className="grid gap-6 md:grid-cols-2 min-h-[456px]">
               {citiesOnPage.map(city => (
                 <CityCard
                   key={city._id}
                   {...city}
-                  heightClass="h-58"
+                  heightClass="h-54"
                 />
               ))}
             </div>
@@ -111,7 +111,7 @@ export default function Catalog() {
 
             {/* Pagination controls */}
             {cities.length > 0 && (
-              <div className="mt-8 flex items-center justify-center gap-4">
+              <div className="mt-5 flex items-center justify-center gap-4">
                 <button
                   onClick={handlePrev}
                   disabled={currentPage === 1}

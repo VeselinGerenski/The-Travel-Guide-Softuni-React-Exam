@@ -8,13 +8,12 @@ import { validateRegister } from "../../utils/validators.js";
 export default function Register() {
   const { registerHandler } = useUserContext();
   const navigate = useNavigate();
-  const { errors, validate } = useValidation(validateRegister);
+  const { errors, validate, setErrors } = useValidation(validateRegister);
 
   const registerSubmitHandler = async (values) => {
     const { fullName, email, password } = values;
 
     const clientErrors = validate(values);
-
     if (Object.keys(clientErrors).length > 0) {
       return;
     }
@@ -24,11 +23,17 @@ export default function Register() {
 
       navigate("/");
     } catch (err) {
-
-      validate(values, err)
+      if (err.status === 409 || err.message?.includes('exists')) {
+        setErrors((prev) => ({
+          ...prev,
+          email: 'This email is already used'
+        }))
+        return;
+      }
+      alert(err.message)
     }
+  
   };
-
   const { register, formAction } = useForm(registerSubmitHandler, {
     fullName: "",
     email: "",

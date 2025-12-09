@@ -18,9 +18,9 @@ export default function Header() {
                 {/* Left – Logo */}
                 <Link to="/" className="flex items-center group">
                     <img
-                        src="/images/logo.png"
+                        src="/images/logo6.png"
                         alt="logo"
-                        className="h-30 w-auto translate-y-[15px] drop-shadow-xl ink-link hover-scale group-hover:drop-shadow-[0_0_25px_rgba(217,119,6,0.55)]"
+                        className="h-30 ml-3 w-auto translate-y-[15px] drop-shadow-xl ink-link hover-scale group-hover:drop-shadow-[0_0_25px_rgba(217,119,6,0.55)]"
                     />
                 </Link>
 
@@ -72,7 +72,7 @@ export default function Header() {
                         >
                             <div
                                 className="
-          h-13 w-13 rounded-full
+          h-15 w-15 rounded-full
           bg-white/20 
           backdrop-blur-sm
           flex items-center justify-center

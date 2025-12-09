@@ -7,29 +7,34 @@ import { validateLogin } from "../../utils/validators.js";
 export default function Login() {
   const navigate = useNavigate();
   const { loginHandler } = useUserContext();
-  const { errors, validate } = useValidation(validateLogin)
+  const { errors, validate, setErrors } = useValidation(validateLogin)
 
-  const submitHandler = async (values) => {
+  const loginSubmitHandler = async (values) => {
     const { email, password } = values;
 
-    const clientErrors = validate(values)
-
+    const clientErrors = validate(values);
     if (Object.keys(clientErrors).length > 0) {
       return;
     }
 
     try {
-
-     await loginHandler(email, password);
+      await loginHandler(email, password);
 
       navigate('/');
     } catch (err) {
-      validate(values, err);
-    }
+      if (err.status === 403 || err.message?.includes('match')) {
+        setErrors((state) => ({
+          ...state,
+          password: "Incorrect email or password.",
+        }));
+        return;
+      }
 
+      alert(err.message || "Login failed, please try again.");
+    }
   }
 
-  const { register, formAction } = useForm(submitHandler, { email: '', password: '' })
+  const { register, formAction } = useForm(loginSubmitHandler, { email: '', password: '' })
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 pt-15 pb-10">

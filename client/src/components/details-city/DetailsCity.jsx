@@ -8,9 +8,10 @@ import useCityLike from "./city-like/useCityLike.js";
 import { useUserContext } from "../../contexts/UserContext.js";
 import useRequest from "../../hooks/useRequest.js";
 import Spinner from "../spinner/Spinner.jsx";
+import useValidation from "../../hooks/useValidation.js";
 
 export default function DetailsCity({
-  heightClass = "h-56"
+  heightClass = "h-58"
 }) {
   const { user, isAuthenticated } = useUserContext();
   const navigate = useNavigate();
@@ -20,8 +21,8 @@ export default function DetailsCity({
   const [city, setCity] = useState(null);
   const [refresh, setRefresh] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-
   const { likes, userHasLiked, toggleLike } = useCityLike(cityId, city?._ownerId);
+  const { errors, setErrors } = useValidation();
 
   useEffect(() => {
     request(`/data/cities/${cityId}`)
@@ -42,7 +43,7 @@ export default function DetailsCity({
         <Spinner />
       </div>
     );
-  }
+  };
 
   const deleteCityHandler = async (city) => {
     const isConfirmed = confirm(`Are you sure you want to delete ${city.name}?`);
@@ -50,10 +51,23 @@ export default function DetailsCity({
     if (!isConfirmed) {
       return;
     }
+    try {
+      await request(`/data/cities/${cityId}`, 'DELETE')
 
-    await request(`/data/cities/${cityId}`, 'DELETE')
+      navigate(-1)
+    } catch (err) {
 
-    navigate(-1)
+      if (err.status === 403 || err.message.includes('Forbidden')) {
+        setErrors((state) => ({
+          ...state,
+          global: 'You can only delete cities you added.'
+        }))
+        return;
+      }
+
+      alert(err.message);
+    }
+
   };
 
   const refreshHandler = () => {
@@ -62,7 +76,7 @@ export default function DetailsCity({
 
   return (
     <div
-      className="fixed inset-0 bg-black/50 backdrop-blur-sm flex justify-center items-center px-3 py-5 z-50"
+      className="fixed inset-0 bg-black/50 backdrop-blur-sm flex justify-center items-center px-3 py-3 z-50"
       onClick={() => navigate(-1)}
     >
       <section
@@ -82,7 +96,7 @@ export default function DetailsCity({
           <img
             src={city.imageUrl}
             alt={city.name}
-            className={`${heightClass} w-full object-cover`}
+            className={`${heightClass} w-full transform scale-115 origin-center`}
           />
           <button
             onClick={() => navigate(-1)}
@@ -93,9 +107,9 @@ export default function DetailsCity({
         </div>
 
         {/* CONTENT */}
-        <div className="px-6 py-4 space-y-4">
+        <div className="px-6 py-4 space-y-3">
           <div className="text-center">
-            <p className="text-[9px] uppercase tracking-[0.15em] text-amber-700">
+            <p className="text-[11px] uppercase tracking-[0.15em] text-amber-700 mt-3">
               {city.country}
             </p>
 
@@ -103,7 +117,7 @@ export default function DetailsCity({
               {city.name}
             </h1>
 
-            <p className="mt-0.5 text-xs text-slate-700 italic">
+            <p className="mt-1 text-xs text-slate-700 italic">
               Population: {city.population.toLocaleString()} people
             </p>
           </div>
@@ -119,7 +133,6 @@ export default function DetailsCity({
 
           <div
             className="flex justify-center gap-3">
-
             {(
               <button
                 className="px-4 py-1.5 rounded-full bg-amber-600 text-white text-xs font-semibold hover:bg-amber-500 transition shadow-sm cursor-pointer"
@@ -143,7 +156,11 @@ export default function DetailsCity({
               </button>
             </>
           </div>
-
+          {errors.global && (
+            <p className="text-[13px] text-center text-red-600 mt-[-3px]">
+              {errors.global}
+            </p>
+          )}
 
           {/* COMMENTS */}
           <div className="pt-2 border-t border-amber-900/20">

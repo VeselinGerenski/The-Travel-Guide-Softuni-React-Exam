@@ -69,3 +69,48 @@ export function validateLogin(values) {
     return errors;
 }
 
+export function validateCity(values) {
+    const errors = {};
+
+    // NAME
+    const name = values.name?.trim() || "";
+    if (!name) {
+        errors.name = "City name is required";
+    } else if (name.length < 3) {
+        errors.name = "City name must be at least 3 characters";
+    }
+
+    // COUNTRY
+    const country = values.country?.trim() || "";
+    if (!country) {
+        errors.country = "Country is required";
+    } else if (country.length < 3) {
+        errors.country = "Country must be at least 3 characters";
+    }
+
+    // POPULATION
+    const populationRaw = values.population;
+    if (populationRaw === "" || populationRaw === null || populationRaw === undefined) {
+        errors.population = "Population is required";
+    } else if (Number.isNaN(Number(populationRaw))) {
+        errors.population = "Population must be a number";
+    } else if (Number(populationRaw) <= 0) {
+        errors.population = "Population must be a positive number";
+    }
+
+    // IMAGE URL
+    const imageUrl = values.imageUrl?.trim() || "";
+    if (!imageUrl) {
+        errors.imageUrl = "Image URL is required";
+    }
+
+    // DESCRIPTION
+    const description = values.description?.trim() || "";
+    if (!description) {
+        errors.description = "Description is required";
+    } else if (description.length < 10) {
+        errors.description = "Description must be at least 10 characters";
+    }
+
+    return errors;
+}
