@@ -126,42 +126,44 @@ export default function DetailsCity({
             {city.description}
           </p>
 
-
-          <div className="text-center text-amber-800 font-semibold text-xs">
-            ❤️ {likes === 1 ? `${likes} traveler likes this destination` : `${likes} travelers like this destination`}
-          </div>
-
-          <div
-            className="flex justify-center gap-3">
-            {(
-              <button
-                className="px-4 py-1.5 rounded-full bg-amber-600 text-white text-xs font-semibold hover:bg-amber-500 transition shadow-sm cursor-pointer"
-                onClick={toggleLike}
-              >
-                {userHasLiked ? "Unlike" : "Like"}
-              </button>
-            )}
-
+          {isAuthenticated && (
             <>
-              <Link
-                to={`/edit/${cityId}`}
-                className="px-4 py-1.5 rounded-full bg-slate-800 text-white text-xs font-semibold hover:bg-slate-700 transition shadow-sm">
-                Edit
-              </Link>
+              <div className="text-center text-amber-800 font-semibold text-xs">
+                ❤️ {likes === 1 ? `${likes} traveler likes this destination` : `${likes} travelers like this destination`}
+              </div>
 
-              <button
-                onClick={() => deleteCityHandler(city)}
-                className="px-4 py-1.5 rounded-full bg-red-700 text-white text-xs font-semibold hover:bg-red-800 transition shadow-sm cursor-pointer">
-                Delete
-              </button>
+              <div className="flex justify-center gap-3">
+
+                <button
+                  className="px-4 py-1.5 rounded-full bg-amber-600 text-white text-xs font-semibold hover:bg-amber-500 transition shadow-sm cursor-pointer"
+                  onClick={toggleLike}
+                >
+                  {userHasLiked ? "Unlike" : "Like"}
+                </button>
+
+                <Link
+                  to={`/edit/${cityId}`}
+                  className="px-4 py-1.5 rounded-full bg-slate-800 text-white text-xs font-semibold hover:bg-slate-700 transition shadow-sm"
+                >
+                  Edit
+                </Link>
+
+                <button
+                  onClick={() => deleteCityHandler(city)}
+                  className="px-4 py-1.5 rounded-full bg-red-700 text-white text-xs font-semibold hover:bg-red-800 transition shadow-sm cursor-pointer"
+                >
+                  Delete
+                </button>
+              </div>
+
+              {errors.global && (
+                <p className="text-[13px] text-center text-red-600 mt-[-3px]">
+                  {errors.global}
+                </p>
+              )}
             </>
-          </div>
-          {errors.global && (
-            <p className="text-[13px] text-center text-red-600 mt-[-3px]">
-              {errors.global}
-            </p>
           )}
-
+          
           {/* COMMENTS */}
           <div className="pt-2 border-t border-amber-900/20">
             <h2 className="text-sm font-semibold text-slate-900 mb-1">Comments</h2>
