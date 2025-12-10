@@ -59,7 +59,7 @@ export default function DetailsCity({ heightClass = "h-58" }) {
         onClick={(e) => e.stopPropagation()}
       >
 
-        {isLoading ? <div className="min-h-screen flex items-center justify-center text-slate-700"><Spinner /></div>
+        {isLoading ? <div className="min-h-[530px] flex items-center justify-center text-slate-700"><Spinner /></div>
           :
           <>
             {/* IMAGE + BASIC INFO */}

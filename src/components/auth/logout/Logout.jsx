@@ -7,10 +7,8 @@ export default function Logout() {
     const navigate = useNavigate();
 
     useEffect(() => {
-
-        logoutHandler(),
-            navigate('/')
-
+        logoutHandler()
+        navigate('/login')
     }, [logoutHandler, navigate])
 
     return null;

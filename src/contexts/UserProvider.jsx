@@ -13,18 +13,21 @@ export default function UserProvider({ children }) {
         setUser(result);
     };
 
-    const loginHandler = async ( email, password) => {
+    const loginHandler = async (email, password) => {
         const result = await request('/users/login', 'POST', { email, password });
         setUser(result);
     };
 
     const logoutHandler = async () => {
-        if (!user) return;
+        if (!user)
+            return;
+
         try {
-            await request('/users/logout', 'POST', null, { accessToken: user.accessToken });
+            await request('/users/logout', 'GET', undefined, { accessToken: user.accessToken });
         } catch (err) {
-            alert(err.message);
-        } finally {
+            alert(err.message)
+        }
+        finally {
             setUser(null);
         }
     };

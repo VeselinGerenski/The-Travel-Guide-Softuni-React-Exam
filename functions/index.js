@@ -1,12 +1,13 @@
+import { setGlobalOptions } from "firebase-functions";
+import { onRequest } from "firebase-functions/v2/https"; 
 
-const { setGlobalOptions } = require("firebase-functions");
-const { onRequest } = require("firebase-functions/https");
-const logger = require("firebase-functions/logger");
 
-const server = require('./server/server');
+// SoftUni server emitter (this must also be ESM-compatible)
+import server from "./server/server.js";
 
-exports.server = onRequest((req, res) => {
-    server.emit('request', req, res)
+setGlobalOptions({ maxInstances: 1 });
+
+export const serverFn = onRequest((req, res) => {
+  server.emit("request", req, res);
 });
 
-setGlobalOptions({ maxInstances: 1, region: 'europe-west4' });

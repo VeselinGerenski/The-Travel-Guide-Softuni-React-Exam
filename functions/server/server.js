@@ -115,7 +115,11 @@
                         result = composeErrorObject(500, 'Server Error');
                     }
                 }
+               
             }
+             if (typeof result !== 'string') {
+                    result = JSON.stringify(result ?? {});
+                }
 
             res.writeHead(status, headers);
             if (context != undefined && context.util != undefined && context.util.throttle) {
@@ -178,7 +182,7 @@
             .filter(s => s != '')
             .map(x => x.split('='))
             .reduce((p, [k, v]) => Object.assign(p, { [k]: decodeURIComponent(v) }), {});
-        const body = req.body;
+        const body = req.body
 
         return {
             serviceName,
@@ -186,20 +190,6 @@
             query,
             body
         };
-    }
-
-    function parseBody(req) {
-        return new Promise((resolve, reject) => {
-            let body = '';
-            req.on('data', (chunk) => body += chunk.toString());
-            req.on('end', () => {
-                try {
-                    resolve(JSON.parse(body));
-                } catch (err) {
-                    resolve(body);
-                }
-            });
-        });
     }
 
     var requestHandler = createHandler;
@@ -1401,7 +1391,5 @@
     ];
 
     const server = http__default['default'].createServer(requestHandler(plugins, services));
-
-    return server
-
+    return server;
 })));

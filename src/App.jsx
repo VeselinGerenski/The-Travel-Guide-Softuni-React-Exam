@@ -16,7 +16,6 @@ import GuestGuard from "./components/auth/guards/GuestGuard.jsx"
 import Destinations from "./components/destinations/Destinations.jsx"
 
 function App() {
-
   return (
     <div className={useBackground()}>
       <Header />

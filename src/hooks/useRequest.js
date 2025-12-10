@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useUserContext } from "../contexts/UserContext.js";
 
-const baseurl = 'http://127.0.0.1:5001/the-travel-guide-cc78e/us-central1/server';
+const baseurl = import.meta.env.VITE_APP_SERVER_URL;
 
 export default function useRequest() {
     const { user, isAuthenticated } = useUserContext();
@@ -22,6 +22,7 @@ export default function useRequest() {
             options.headers = {
                 ...options.headers,
                 'X-Authorization': config.accessToken || user.accessToken
+                //   Authorization: `Bearer ${config.accessToken || user.accessToken}`,
             };
         }
 
