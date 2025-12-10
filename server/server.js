@@ -1342,7 +1342,6 @@
                 "population": 8900000,
                 "description": "Foggy mornings, red buses and hidden bookshops.",
                 "imageUrl": "/images/cities/london.jpg",
-                "likes": 1
             },
             "7b9a2c4f-1d5e-4b6c-8a3d-2f1e0g3h4i5j": {
                 "_id": "7b9a2c4f-1d5e-4b6c-8a3d-2f1e0g3h4i5j",
@@ -1351,7 +1350,7 @@
                 "population": 2148000,
                 "description": "Lantern-lit streets and cafe terraces along the Seine.",
                 "imageUrl": "/images/cities/paris.jpg",
-                "likes": 1
+
             },
             "3d4e5f6g-7h8i-9j0k-1l2m-3n4o5p6q7r8s": {
                 "_id": "3d4e5f6g-7h8i-9j0k-1l2m-3n4o5p6q7r8s",
@@ -1360,7 +1359,6 @@
                 "population": 2873000,
                 "description": "Warm stone, winding alleys and ancient ruins.",
                 "imageUrl": "/images/cities/rome.jpg",
-                "likes": 1
             },
             "9f8e7d6c-5b4a-3c2d-1e0f-9g8h7i6j5k4l": {
                 "_id": "9f8e7d6c-5b4a-3c2d-1e0f-9g8h7i6j5k4l",
@@ -1369,13 +1367,12 @@
                 "population": 13960000,
                 "description": "Neon-lit nights, temples, and endless energy.",
                 "imageUrl": "/images/cities/tokyo.jpg",
-                "likes": 1
             }
         },
         comments: {
 
         },
-       likes: {
+        likes: {
 
         }
     };

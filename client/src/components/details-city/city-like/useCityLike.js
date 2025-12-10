@@ -13,7 +13,7 @@ export default function useCityLike(cityId,) {
     useEffect(() => {
         if (!cityId) return;
 
-        const fetchLikes = async () => {
+            const fetchLikes = async () => {
 
             // 1) total likes count
             const countQuery = encodeURIComponent(`cityId="${cityId}"`);

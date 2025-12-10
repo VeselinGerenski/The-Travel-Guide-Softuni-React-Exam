@@ -1,4 +1,3 @@
-
 import { useNavigate } from "react-router";
 import useForm from "../../hooks/useForm.js";
 import useRequest from "../../hooks/useRequest.js";
@@ -23,7 +22,7 @@ export default function CreateCity() {
     try {
       await request('/data/cities', 'POST', data)
 
-      navigate('/catalog')
+      navigate('/destinations')
     } catch (err) {
       alert(err.message || 'Failed to create city')
     }

@@ -25,7 +25,7 @@ body {
   background-position: top center;
 }
 
-/* Default background (catalog, profile, etc.) */
+/* Default background (Destinations, profile, etc.) */
 .default-bg {
   min-height: 100vh;
   background-image: url("/images/homeBackground.jpg");
