@@ -72,12 +72,15 @@ export function validateLogin(values) {
 export function validateCity(values) {
     const errors = {};
 
+    const regex = /^[A-Za-z]+(?:[ -][A-Za-z]+)*$/;
     // NAME
     const name = values.name?.trim() || "";
     if (!name) {
         errors.name = "City name is required";
     } else if (name.length < 3) {
         errors.name = "City name must be at least 3 characters";
+    } else if (!regex.test(name)) {
+        errors.name = "Use only letters, spaces and hyphens"
     }
 
     // COUNTRY
@@ -86,6 +89,8 @@ export function validateCity(values) {
         errors.country = "Country is required";
     } else if (country.length < 3) {
         errors.country = "Country must be at least 3 characters";
+    } else if (!regex.test(country)) {
+        errors.country = "Use only letters, spaces and hyphens"
     }
 
     // POPULATION
@@ -102,6 +107,8 @@ export function validateCity(values) {
     const imageUrl = values.imageUrl?.trim() || "";
     if (!imageUrl) {
         errors.imageUrl = "Image URL is required";
+    } if (!imageUrl.startsWith('/') && !imageUrl.startsWith('http')) {
+        errors.imageUrl = "URL has to start with http or '/'";
     }
 
     // DESCRIPTION
