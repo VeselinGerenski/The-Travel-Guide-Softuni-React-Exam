@@ -26,7 +26,7 @@ export default function CreateComment({
             });
 
             onCreate();
-           
+            
             setValues((state) => ({
                 ...state,
                 comment: ''
