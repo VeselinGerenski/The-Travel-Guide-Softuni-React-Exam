@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useUserContext } from "../contexts/UserContext.js";
 
-const baseurl = 'http://localhost:3030';
+const baseurl = 'http://127.0.0.1:5001/the-travel-guide-cc78e/us-central1/server';
 
 export default function useRequest() {
     const { user, isAuthenticated } = useUserContext();
