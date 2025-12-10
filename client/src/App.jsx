@@ -1,19 +1,19 @@
 import { Route, Routes } from "react-router"
 import Footer from "./components/footer/Footer.jsx"
 import Header from "./components/header/Header.jsx"
-import Catalog from "./components/catalog/Catalog.jsx"
 import Home from "./components/home/Home.jsx"
-import Register from "./components/register/Register.jsx"
-import Login from "./components/login/Login.jsx"
+import Login from "./components/auth/login/Login.jsx"
 import CreateCity from "./components/create-city/CreateCity.jsx"
 import DetailsCity from "./components/details-city/DetailsCity.jsx"
 import EditCity from "./components/edit-city/EditCity.jsx"
-import Page404 from "./components/page-404/Page404.jsx"
 import useBackground from "./hooks/useBackground.js"
-import GuestGuard from "./components/guards/GuestGuard.jsx"
-import AuthGuard from "./components/guards/AuthGuard.jsx"
-import Logout from "./components/logout/Logout.jsx"
+import Page404 from "./components/page-404/Page404.jsx"
 import Profile from "./components/profile/Profile.jsx"
+import Register from "./components/auth/register/Register.jsx"
+import Logout from "./components/auth/logout/Logout.jsx"
+import AuthGuard from "./components/auth/guards/AuthGuard.jsx"
+import GuestGuard from "./components/auth/guards/GuestGuard.jsx"
+import Destinations from "./components/destinations/Destinations.jsx"
 
 function App() {
 
@@ -23,7 +23,7 @@ function App() {
 
       <Routes >
         <Route path="/" element={<Home />} />
-        <Route path="/Catalog" element={<Catalog />} />
+        <Route path="/destinations" element={<Destinations />} />
         <Route path="/details/:cityId" element={<DetailsCity />} />
 
         <Route element={<GuestGuard />}>

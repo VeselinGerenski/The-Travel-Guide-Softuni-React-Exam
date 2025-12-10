@@ -1,74 +1,27 @@
-import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { useUserContext } from "../../contexts/UserContext.js";
-import useRequest from "../../hooks/useRequest.js";
 import CityCard from "../city-card/CityCard.jsx";
 import Spinner from "../spinner/Spinner.jsx";
+import useProfileData from "./useProfileData.js";
 
 export default function Profile() {
     const navigate = useNavigate();
     const { user } = useUserContext();
-    const { request } = useRequest();
 
-    const [isLoading, setIsLoading] = useState(true);
-    const [cities, setCities] = useState([]);
-    const [likes, setLikes] = useState([]);
-    const [comments, setComments] = useState([]);
-
-    useEffect(() => {
-        if (!user?._id) return;
-
-        // Load everything we need for the profile
-        Promise.all([
-            request("/data/cities"),
-            request("/data/likes"),
-            request(`/data/comments?where=_ownerId%3D%22${user._id}%22`)
-        ])
-            .then(([citiesRes, likesRes, commentsRes]) => {
-                setCities(Array.isArray(citiesRes) ? citiesRes : []);
-                setLikes(Array.isArray(likesRes) ? likesRes : []);
-                setComments(Array.isArray(commentsRes) ? commentsRes : []);
-            })
-            .catch(err => {
-                alert(err.message);
-            })
-            .finally(() => {
-                setIsLoading(false);
-            });
-    }, [request, user?._id]);
-
-    if (!user) {
-        return (
-            <div className="min-h-screen flex items-center justify-center text-white">
-                You must be logged in to view your profile.
-            </div>
-        );
-    }
-
-    // ----- STATS LOGIC -----
-
-    // Likes given by this user
-    const likesGiven = likes.filter(l => l._ownerId === user._id);
-
-    // Cities created by this user
-    const myCities = cities.filter(c => c._ownerId === user._id);
-
-    // Likes received on my cities
-    const myCityIds = new Set(myCities.map(c => c._id));
-    const likesReceived = likes.filter(l => myCityIds.has(l.cityId));
-
-    // Liked cities list (from likesGiven)
-    const likedCityIds = Array.from(new Set(likesGiven.map(l => l.cityId)));
-    const likedCities = cities.filter(c => likedCityIds.includes(c._id));
-
-    // Recent comments (sort by createdOn desc)
-    const recentComments = [...comments]
-        .sort((a, b) => b._createdOn - a._createdOn)
-        .slice(0, 5);
+    const {
+        cities,
+        comments,
+        isLoading,
+        likesGiven,
+        myCities,
+        likesReceived,
+        likedCities,
+        recentComments,
+    } = useProfileData(user._id);
 
     return (
         <div className="min-h-screen flex justify-center px-4 pt-5 pb-6">
-            {/* MAIN CARD – same style as Catalog */}
+            {/* MAIN CARD */}
             <section className="relative w-full max-w-5xl rounded-3xl bg-[#ebe6d9]/85 border border-white/40 px-10 py-10 shadow-[0_0_60px_rgba(0,0,0,0.18)]">
 
                 {/* X CLOSE BUTTON */}
@@ -92,7 +45,7 @@ export default function Profile() {
                 </button>
 
                 {isLoading ? (
-                    <div className="flex justify-center items-center py-20">
+                    <div className="flex justify-center items-center py-45">
                         <Spinner />
                     </div>
                 ) : (
@@ -100,7 +53,7 @@ export default function Profile() {
                         {/* HEADER */}
                         <div className="flex flex-col md:flex-row items-center md:items-start gap-6 mb-8">
                             {/* Avatar placeholder */}
-                            <div className="w-20 h-20 rounded-full bg-amber-700/80 text-white flex items-center justify-center text-2xl font-semibold shadow-md">
+                            <div className="w-20 h-20 rounded-full bg-amber-700/80 text-white flex items-center justify-center text-3xl font-semibold shadow-md">
                                 {user.fullName?.[0]?.toUpperCase()}
                             </div>
 
@@ -155,16 +108,16 @@ export default function Profile() {
 
                         {/* CONTENT SECTIONS */}
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+
                             {/* Liked Cities */}
                             <div className="md:col-span-2">
                                 {/* Heading row */}
-                               <div className="flex items-center justify-start gap-55 mb-3">
+                                <div className="flex items-center justify-start gap-55 mb-3">
                                     <h2 className="text-base font-semibold text-slate-900">
                                         ❤️ Cities you liked
                                     </h2>
-
                                     <Link
-                                        to="/catalog"
+                                        to="/destinations"
                                         className="text-xs sm:text-sm font-medium text-amber-700 hover:text-amber-900 transition flex items-center gap-1"
                                     >
                                         <span>✈️</span>
@@ -172,7 +125,7 @@ export default function Profile() {
                                             All Destinations →
                                         </span>
                                     </Link>
-                                </div>
+                            </div>
 
                                 {likedCities.length === 0 ? (
                                     <p className="text-xs text-slate-600">
@@ -240,6 +193,7 @@ export default function Profile() {
                                     </div>
                                 )}
                             </div>
+
                         </div>
                     </>
                 )}

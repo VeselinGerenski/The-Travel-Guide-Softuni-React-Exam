@@ -14,13 +14,12 @@ export default function Home() {
             request("/data/likes"),
         ])
             .then(([citiesRes, likesRes]) => {
-                
+
                 const likes = Array.isArray(likesRes) ? likesRes : [];
 
                 // Add likes + last like timestamp to each city
                 const citiesWithStats = citiesRes.map(city => {
                     const cityLikes = likes.filter(like => like.cityId === city._id);
-
                     const likeCount = cityLikes.length;
 
                     // get MOST RECENT like timestamp
@@ -55,8 +54,7 @@ export default function Home() {
 
     return (
         <div className="min-h-screen flex flex-col lg:flex-row items-start justify-center gap-10 px-4 pt-35 pb-10 ml-[-40px]">
-
-            {/* LEFT SIDE */}
+            {/* LEFT SIDE WELCOME MSG*/}
             <div className="hidden lg:flex flex-col items-start mt-26 ">
                 <h2 className="text-5xl font-['Playfair_Display'] text-white drop-shadow-xl leading-tight">
                     Welcome to<br />The Travel Guide
@@ -67,8 +65,10 @@ export default function Home() {
                 </p>
             </div>
 
-            {/* RIGHT SIDE */}
-            <section className="w-full max-w-4xl rounded-3xl bg-[#ebe6d9]/85 border border-white/40 shadow-[0_0_60px_rgba(0,0,0,0.18)] px-10 py-10">
+            {/* RIGHT SIDE CARDS GRID */}
+            <section className="w-full max-w-4xl rounded-3xl bg-[#ebe6d9]/85 border border-white/40 shadow-[0_0_60px_rgba(0,0,0,0.18)] px-10 py-10">  
+                
+                  {/* Header */}
                 <div className="mb-5 text-center">
                     <p className="text-xs uppercase tracking-[0.25em] text-amber-700">
                         Created by The Travel Guide
@@ -81,9 +81,11 @@ export default function Home() {
                     </p>
                 </div>
 
-                {/* CARDS */}
+                    {/* Grid */}
                 {isLoading ? (
-                    <Spinner />
+                    <div className="flex justify-center items-center min-h-[320px]">
+                        <Spinner />
+                    </div>
                 ) : (
                     <div className="grid gap-7 md:grid-cols-3">
                         {cities.map(city => (

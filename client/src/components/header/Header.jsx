@@ -4,14 +4,13 @@ import { useUserContext } from "../../contexts/UserContext.js";
 
 export default function Header() {
     const { pathname } = useLocation();
-    const hideNav = pathname === "/catalog" || pathname === "/profile";
+    const hideNav = pathname === "/destinations" || pathname === "/profile";
 
     const { isAuthenticated, user } = useUserContext()
 
     return (
 
         <header className="absolute inset-x-0 top-0 z-50 text-white bg-gradient-to-b from-black/60 via-black/10 to-transparent">
-
             {/* Full width nav bar */}
             <nav className="w-full h-25 flex items-center justify-between px-10 font-['Playfair_Display']">
 
@@ -26,12 +25,11 @@ export default function Header() {
 
                 {/* Navigation - Center */}
                 <div className="absolute left-[50%] -translate-x-1/2">
-
                     {!hideNav && (
                         <ul className="hidden lg:flex gap-16 text-2xl font-semibold tracking-wide">
 
                             <li>
-                                <Link to="/catalog" className="ink-link inline-block text-3xl hover-scale">Catalog</Link>
+                                <Link to="/destinations" className="ink-link inline-block text-3xl hover-scale">Destinations</Link>
                             </li>
 
                             {isAuthenticated ?
@@ -46,7 +44,6 @@ export default function Header() {
                                 </>
                                 :
                                 <>
-
                                     <li>
                                         <Link to="/login" className="ink-link inline-block text-3xl hover-scale">
                                             Login
@@ -63,7 +60,7 @@ export default function Header() {
                 </div>
 
 
-                {/* Right - Username / Profile */}
+                {/* Right - Profile */}
                 {isAuthenticated && (
                     <div className="hidden lg:flex items-center justify-end ml-6">
                         <Link
