@@ -17,9 +17,9 @@ export default function Header() {
                 {/* Left – Logo */}
                 <Link to="/" className="flex items-center group">
                     <img
-                        src="/images/logo6.png"
+                        src="/images/logo13.png"
                         alt="logo"
-                        className="h-30 ml-3 w-auto translate-y-[15px] drop-shadow-xl ink-link hover-scale group-hover:drop-shadow-[0_0_25px_rgba(217,119,6,0.55)]"
+                        className="h-34 ml-2 w-auto translate-y-[18px] drop-shadow-xl ink-link hover-scale group-hover:drop-shadow-[0_0_25px_rgba(217,119,6,0.55)]"
                     />
                 </Link>
 
@@ -69,18 +69,18 @@ export default function Header() {
                         >
                             <div
                                 className="
-          h-15 w-15 rounded-full
+          h-14 w-14 rounded-full
           bg-white/20 
           backdrop-blur-sm
           flex items-center justify-center
           border border-white/40
           shadow-[0_0_12px_rgba(255,255,255,0.25)]
-          group-hover:border-amber-400
+          group-hover:border-amber-600
           group-hover:shadow-[0_0_18px_rgba(245,158,11,0.55)]
-          transition-all duration-200  hover-scale
+          transition-all duration-120  hover-scale
         "
                             >
-                                <span className="text-xl font-semibold uppercase text-white/90 tracking-wide">
+                                <span className="text-[23px] font-semibold uppercase text-white/90 tracking-wide hover:text-amber-600">
                                     {user?.fullName?.[0] || "P"}
                                 </span>
                             </div>
